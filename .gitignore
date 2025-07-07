@@ -1,0 +1,38 @@
+# Gitignore for ai-video-gpt project
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# IDEs
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Output directory
+output/
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# Other
+*.sublime-project
+*.sublime-workspace
+*.bak
+*.swp
+*~
+*.tmp
