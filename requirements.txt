@@ -1,4 +1,15 @@
-google-generativeai
+# Google Gemini API (nova dependência para Gemini 2.0 Flash)
+google-genai>=0.3.0
 
+# Dependências existentes
+google-generativeai
 python-dotenv
 coqui-tts
+requests
+Pillow
+gtts
+moviepy
+ffmpeg-python
+opencv-python
+
+# Removidas: google-cloud-aiplatform e vertexai (substituídas por google-genai)

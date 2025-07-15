@@ -1,0 +1,6 @@
+1
+00:00:00,118 --> 00:00:03,008
+Unidade sete ativada.
+2
+00:00:03,008 --> 00:00:06,488
+Começando a exploração.

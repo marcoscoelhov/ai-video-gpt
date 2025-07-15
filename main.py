@@ -1,8 +1,12 @@
 import argparse
 import os
+import sys
 import json
 import datetime
 from dotenv import load_dotenv
+
+# Add src directory to Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 # Load environment variables from .env file
 load_dotenv()
@@ -74,16 +78,11 @@ def main(theme):
         return
     print(f"   -> {len(audio_paths)} audio files generated successfully.")
 
-    # Step 5: Generate subtitles (this will need refactoring to use scene-specific audio)
+    # Step 5: Generate subtitles using Gemini 2.0 Flash
     print("\n📜 Step 5: Generating subtitles...")
-    # For now, we'll generate a single subtitle file from the first audio, this needs improvement
-    # Ideally, subtitles should be generated per scene and then merged, or from the full script
-    # For now, let's assume we need a single audio file for subtitle generation.
-    # We might need to concatenate all audio files first, or pass the full script to subtitle generation.
-    # For simplicity, let's pass the full script narration for now.
-    full_narration = " ".join([scene.get("narration", "") for scene in script_data["scenes"]])
+    # Use the generated audio files to create subtitles with Gemini
     subtitle_output_dir = os.path.join(video_output_dir, "subtitles")
-    subtitle_path = generate_subtitles(full_narration, subtitle_output_dir) # This function needs update
+    subtitle_path = generate_subtitles(audio_paths, subtitle_output_dir)
     if not subtitle_path:
         print("   -> Subtitle generation failed. Aborting.")
         return
@@ -105,7 +104,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Check for API keys
-    if not os.getenv("GEMINI_API_KEY") or not os.getenv("OPENAI_API_KEY"):
-        print("Error: GEMINI_API_KEY and OPENAI_API_KEY must be set in your .env file.")
+    if not os.getenv("GEMINI_API_KEY"):
+        print("Error: GEMINI_API_KEY must be set in your .env file.")
+        print("Note: OPENAI_API_KEY is optional (only needed for voice generation if using OpenAI TTS)")
+    elif not os.getenv("OPENAI_API_KEY"):
+        print("Warning: OPENAI_API_KEY not found. Voice generation may fail if using OpenAI TTS.")
+        print("Continuing with Gemini for image generation and subtitles...")
+        main(args.theme)
     else:
         main(args.theme)
