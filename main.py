@@ -100,8 +100,20 @@ def main(theme):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a short AI comic-style video from a theme.")
-    parser.add_argument("--theme", type=str, required=True, help="The theme of the video (e.g., 'Cyberpunk city exploration').")
+    parser.add_argument("--theme", type=str, help="The theme of the video (e.g., 'Cyberpunk city exploration').")
+    parser.add_argument("--test", action="store_true", help="Run in test mode using existing files (no API calls)")
     args = parser.parse_args()
+
+    # Test mode - use existing files
+    if args.test:
+        print("🧪 Executando em modo de teste...")
+        print("💡 Use: python test_mode.py --list para ver projetos disponíveis")
+        print("💡 Use: python test_mode.py --project <nome> para testar montagem")
+        return
+    
+    # Normal mode - require theme
+    if not args.theme:
+        parser.error("--theme é obrigatório no modo normal. Use --test para modo de teste.")
 
     # Check for API keys
     if not os.getenv("GEMINI_API_KEY"):

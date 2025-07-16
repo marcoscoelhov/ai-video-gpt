@@ -198,6 +198,115 @@ Durante a execução do projeto, a geração de legendas falhou devido a limita�
 - ✅ **Legendas geradas com sucesso** para todos os 3 arquivos de áudio
 - ✅ **Timestamps precisos** e formato SRT correto
 - ✅ **Integração perfeita** com o pipeline principal
+
+## 🔄 Nova Tarefa: Sistema de Legendas com JSON
+
+### Problema Atual:
+As legendas em formato SRT estão causando problemas no FFmpeg devido a caracteres especiais nos caminhos do Windows. Erros como "Unable to parse option value" e "Invalid argument" impedem a montagem correta do vídeo com legendas.
+
+### Solução Proposta: Sistema de Legendas JSON
+
+#### Vantagens do JSON:
+1. **Mais fácil de processar**: Estrutura de dados nativa do Python
+2. **Flexibilidade**: Pode incluir metadados adicionais (estilo, posição, etc.)
+3. **Robustez**: Menos problemas com caracteres especiais
+4. **Extensibilidade**: Fácil de adicionar novos campos no futuro
+5. **Melhor debugging**: Estrutura mais clara para identificar problemas
+
+#### Tarefas:
+
+##### 🔄 Em Progresso
+- [ ] **Tarefa 1**: Modificar GeminiSubtitleClient para gerar JSON
+  - Alterar prompt para retornar JSON estruturado
+  - Criar schema JSON para legendas
+  - Manter compatibilidade com SRT como fallback
+
+- [ ] **Tarefa 2**: Criar conversor JSON para SRT
+  - Função para converter JSON para SRT quando necessário
+  - Validação de timestamps e formatação
+  - Tratamento de caracteres especiais
+
+- [ ] **Tarefa 3**: Atualizar função de montagem de vídeo
+  - Modificar assemble.py para usar JSON como formato principal
+  - Converter para SRT apenas na hora da montagem
+  - Melhorar tratamento de caminhos no Windows
+
+- [ ] **Tarefa 4**: Testes e validação
+  - Testar geração de legendas em JSON
+  - Testar conversão JSON → SRT
+  - Testar montagem de vídeo com novas legendas
+  - Verificar se legendas aparecem corretamente no vídeo final
+
+##### 📋 Pendente
+- [ ] **Tarefa 5**: Documentação
+  - Atualizar documentação sobre novo formato
+  - Exemplos de uso
+
+#### Estrutura JSON Proposta:
+```json
+{
+  "subtitles": [
+    {
+      "id": 1,
+      "start_time": "00:00:00.000",
+      "end_time": "00:00:03.500",
+      "text": "Olá, este é um exemplo de legenda.",
+      "style": {
+        "font_size": 24,
+        "color": "white",
+        "position": "bottom"
+      }
+    }
+  ],
+  "metadata": {
+    "language": "pt-BR",
+    "total_duration": "00:04:27.000",
+    "created_at": "2025-01-15T20:25:36Z"
+  }
+}
+```
+
+#### Benefícios Esperados:
+1. Eliminação de problemas com caminhos de arquivo
+2. Maior flexibilidade para estilos de legenda
+3. Melhor debugging e manutenção
+4. Preparação para futuras funcionalidades (múltiplos idiomas, estilos, etc.)
+
+## 🧪 Nova Tarefa: Versão de Teste para Economizar Créditos
+
+### Problema Identificado:
+Para evitar gastos desnecessários durante desenvolvimento e testes, precisamos criar uma versão que reutilize arquivos já existentes.
+
+### Plano de Implementação:
+
+#### Análise dos Recursos Disponíveis
+- [x] 1. Verificar arquivos de saída existentes no diretório `output/`
+- [ ] 2. Identificar conjuntos completos (imagens + áudio + legendas)
+- [ ] 3. Selecionar melhor conjunto para reutilização
+
+#### Criação da Versão de Teste
+- [ ] 4. Criar script `test_mode.py` que reutilize arquivos existentes
+- [ ] 5. Implementar modo `--test` no `main.py`
+- [ ] 6. Configurar para pular geração de imagens/áudio/legendas
+- [ ] 7. Focar apenas na montagem do vídeo final
+
+#### Funcionalidades do Modo Teste
+- [ ] 8. Permitir seleção de conjunto de arquivos existente
+- [ ] 9. Testar apenas a funcionalidade de montagem (`assemble.py`)
+- [ ] 10. Validar correções sem gastar créditos de API
+- [ ] 11. Gerar relatório de teste sem custos
+
+#### Benefícios Esperados
+- 💰 **Zero custos** durante desenvolvimento
+- ⚡ **Execução rápida** (sem chamadas de API)
+- 🔧 **Foco na correção** do módulo de montagem
+- 🧪 **Testes iterativos** sem limitações
+
+### Arquivos Disponíveis para Reutilização:
+- `video_robô_explorando_cidade_20250715_201811/` - 3 cenas completas
+- `video_teste_correção_20250715_202536/` - 3 cenas completas
+- `video_teste_final_20250715_202414/` - 4 cenas completas
+- `video_teste_montagem_20250715_202306/` - 3 cenas completas
 - ✅ **Eliminação completa da dependência do OpenAI** para legendas
 - ✅ **Processo automatizado** para múltiplos arquivos de áudio
 

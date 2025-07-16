@@ -1,0 +1,33 @@
+{
+  "subtitles": [
+    {
+      "id": 1,
+      "start_time": "00:00:00.000",
+      "end_time": "00:00:03.500",
+      "text": "Bem-vindos ao futuro da criação de vídeos!"
+    },
+    {
+      "id": 2,
+      "start_time": "00:00:04.000",
+      "end_time": "00:00:07.200",
+      "text": "Com inteligência artificial, podemos gerar legendas precisas."
+    },
+    {
+      "id": 3,
+      "start_time": "00:00:07.500",
+      "end_time": "00:00:10.800",
+      "text": "O formato JSON oferece muito mais flexibilidade."
+    },
+    {
+      "id": 4,
+      "start_time": "00:00:11.000",
+      "end_time": "00:00:14.500",
+      "text": "Podemos incluir metadados como confiança e identificação do falante."
+    }
+  ],
+  "metadata": {
+    "language": "pt-BR",
+    "total_duration": "00:00:14.500",
+    "created_at": "2025-07-15T21:52:54.382722"
+  }
+}

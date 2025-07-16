@@ -5,3 +5,5 @@
 5. Por favor, a cada passo do caminho, apenas me dê uma explicação detalhada das alterações que você fez.
 6. Torne cada tarefa e alteração de código o mais simples possível. Queremos evitar alterações massivas ou complexas. Cada alteração deve impactar o mínimo possível no código. Tudo se resume à simplicidade.
 7. Por fim, adicione uma seção de revisão ao arquivo todo.md com um resumo das alterações feitas e quaisquer outras informações relevantes.
+8. Reutilize arquivos gerados por I.A para diminuir custos em testes.
+9. Unifique arquivos ou pastas similares para evitar redundância.

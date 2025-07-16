@@ -1,0 +1,15 @@
+{
+  "subtitles": [
+    {
+      "id": 1,
+      "start_time": "00:00:00.000",
+      "end_time": "00:00:02.900",
+      "text": "First time in Neo Tokyo."
+    }
+  ],
+  "metadata": {
+    "language": "pt-BR",
+    "total_duration": "00:00:03.000",
+    "created_at": "2024-02-28T12:00:00.000"
+  }
+}

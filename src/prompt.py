@@ -3,12 +3,13 @@
 def scene_prompts(script_data):
     """
     Extracts visual descriptions from each scene in the structured script.
+    Adds vertical format specification for TikTok (9:16 aspect ratio).
 
     Args:
         script_data: A dictionary representing the structured script.
 
     Returns:
-        A list of image prompts.
+        A list of image prompts optimized for vertical format.
     """
     if not isinstance(script_data, dict) or "scenes" not in script_data:
         print("Error: Invalid script format. Expected a dictionary with a 'scenes' key.")
@@ -17,7 +18,9 @@ def scene_prompts(script_data):
     prompts = []
     for scene in script_data["scenes"]:
         if "visual_description" in scene:
-            prompts.append(scene["visual_description"])
+            # Add vertical format specification for TikTok
+            vertical_prompt = f"{scene['visual_description']}, vertical composition, portrait orientation, 9:16 aspect ratio, optimized for mobile viewing"
+            prompts.append(vertical_prompt)
         else:
             print(f"Warning: Scene {scene.get('scene', '?')} is missing a 'visual_description'.")
 

@@ -1,0 +1,24 @@
+{
+  "title": "Robô TikTok Test",
+  "description": "Vídeo de teste para verificar formato TikTok 9:16",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Um robô amigável acenando para a câmera em uma cidade futurista",
+      "narration": "Olá! Este é um teste do formato TikTok.",
+      "duration": 3
+    },
+    {
+      "scene": 2,
+      "visual_description": "O robô caminhando por uma rua com prédios altos e luzes neon",
+      "narration": "Verificando se o vídeo está em formato vertical.",
+      "duration": 3
+    },
+    {
+      "scene": 3,
+      "visual_description": "Close-up do robô sorrindo com a cidade ao fundo",
+      "narration": "Resolução 720 por 1280 pixels, perfeito para TikTok!",
+      "duration": 4
+    }
+  ]
+}

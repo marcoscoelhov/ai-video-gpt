@@ -1,0 +1,15 @@
+1
+00:00:00,000 --> 00:00:03,500
+Bem-vindos ao futuro da criação de vídeos!
+
+2
+00:00:04,000 --> 00:00:07,200
+Com inteligência artificial, podemos gerar legendas precisas.
+
+3
+00:00:07,500 --> 00:00:10,800
+O formato JSON oferece muito mais flexibilidade.
+
+4
+00:00:11,000 --> 00:00:14,500
+Podemos incluir metadados como confiança e identificação do falante.

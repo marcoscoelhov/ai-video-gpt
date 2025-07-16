@@ -35,7 +35,7 @@ def main(theme):
 
     # Step 3: Generate images
     print("\n🖼️ Step 3: Generating images...")
-    image_paths = generate_images_from_prompts(prompts)
+    image_paths = generate_images_from_prompts(prompts, "output")
     if not image_paths:
         print("   -> Image generation failed. Aborting.")
         return
@@ -43,24 +43,23 @@ def main(theme):
 
     # Step 4: Generate audio
     print("\n🎙️ Step 4: Generating audio...")
-    audio_path = tts(script)
-    if not audio_path:
+    audio_paths = tts_scenes(script, "output")
+    if not audio_paths:
         print("   -> Audio generation failed. Aborting.")
         return
-    print(f"   -> Audio generated at: {audio_path}")
+    print(f"   -> {len(audio_paths)} audio files generated successfully.")
 
     # Step 5: Generate subtitles
-    print("
-Step 5: Generating subtitles...")
-    subtitle_path = generate_subtitles(audio_path)
+    print("\n📝 Step 5: Generating subtitles...")
+    subtitle_path = generate_subtitles(audio_paths, "output")
     if not subtitle_path:
         print("   -> Subtitle generation failed. Aborting.")
         return
     print(f"   -> Subtitles generated at: {subtitle_path}")
 
     # Step 6: Assemble video
-    print("\nStep 6: Assembling video...")
-    video_path = assemble_video(image_paths, audio_path, subtitle_path)
+    print("\n🎬 Step 6: Assembling video...")
+    video_path = assemble_video(image_paths, audio_paths, subtitle_path, "output/final_video.mp4")
     if video_path:
         print(f"\n✅ Video successfully assembled at: {video_path}")
     else:
