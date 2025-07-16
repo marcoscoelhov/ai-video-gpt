@@ -109,7 +109,7 @@ if __name__ == "__main__":
         print("🧪 Executando em modo de teste...")
         print("💡 Use: python test_mode.py --list para ver projetos disponíveis")
         print("💡 Use: python test_mode.py --project <nome> para testar montagem")
-        return
+        sys.exit(0)
     
     # Normal mode - require theme
     if not args.theme:
