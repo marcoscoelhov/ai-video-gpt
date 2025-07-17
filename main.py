@@ -5,18 +5,16 @@ import json
 import datetime
 from dotenv import load_dotenv
 
-# Add src directory to Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-
 # Load environment variables from .env file
 load_dotenv()
 
-from scriptgen import generate_script
-from prompt import scene_prompts
-from imagegen import generate_images_from_prompts
-from voice import tts_scenes
-from subtitle import generate_subtitles
-from assemble import assemble_video
+# Import modules from new organized structure
+from core.scriptgen import generate_script
+from utils.prompt import scene_prompts
+from core.imagegen import generate_images_from_prompts
+from core.voice import tts_scenes
+from core.subtitle import generate_subtitles
+from core.assemble import assemble_video
 
 def main(theme):
     """
@@ -42,7 +40,7 @@ def main(theme):
     script_data = generate_script(theme)
     if not script_data:
         print("   -> Script generation failed. Aborting.")
-        return
+        return False
     
     # Save the structured script
     script_path = os.path.join(video_output_dir, "script.json")
@@ -55,7 +53,7 @@ def main(theme):
     prompts = scene_prompts(script_data)
     if not prompts:
         print("   -> No image prompts generated. Aborting.")
-        return
+        return False
     print(f"   -> {len(prompts)} prompts extracted from script.")
 
     # Step 3: Generate images
@@ -65,7 +63,7 @@ def main(theme):
     image_paths = generate_images_from_prompts(prompts, image_output_dir)
     if not image_paths:
         print("   -> Image generation failed. Aborting.")
-        return
+        return False
     print(f"   -> {len(image_paths)} images generated successfully.")
 
     # Step 4: Generate audio for each scene
@@ -75,28 +73,30 @@ def main(theme):
     audio_paths = tts_scenes(script_data, audio_output_dir)
     if not audio_paths:
         print("   -> Audio generation failed. Aborting.")
-        return
+        return False
     print(f"   -> {len(audio_paths)} audio files generated successfully.")
 
     # Step 5: Generate subtitles using Gemini 2.0 Flash
     print("\n📜 Step 5: Generating subtitles...")
     # Use the generated audio files to create subtitles with Gemini
     subtitle_output_dir = os.path.join(video_output_dir, "subtitles")
-    subtitle_path = generate_subtitles(audio_paths, subtitle_output_dir)
+    subtitle_path = generate_subtitles(audio_paths, subtitle_output_dir, script_path)
     if not subtitle_path:
         print("   -> Subtitle generation failed. Aborting.")
-        return
+        return False
     print(f"   -> Subtitles generated at: {subtitle_path}")
 
     # Step 6: Assemble video
     print("\n🎞️ Step 6: Assembling video...")
     # Pass all generated image and audio paths, and the final video output path
     final_video_path = os.path.join(video_output_dir, f"{video_id}.mp4")
-    video_path = assemble_video(image_paths, audio_paths, subtitle_path, final_video_path)
+    video_path = assemble_video(image_paths, audio_paths, subtitle_path, final_video_path, subtitle_style="modern")
     if video_path:
         print(f"\n✅ Video successfully assembled at: {video_path}")
+        return True
     else:
         print("\n❌ Video assembly failed. Check logs for errors, especially for ffmpeg/ffprobe installation.")
+        return False
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a short AI comic-style video from a theme.")

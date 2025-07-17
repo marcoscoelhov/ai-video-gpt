@@ -20,7 +20,7 @@ except ImportError:
 # Adicionar o diretório pai ao path para importar o cliente
 sys.path.append(str(Path(__file__).parent.parent))
 
-from gemini_imagen_client import GeminiImagenClient, generate_image_quick
+from config.gemini_imagen_client import GeminiImagenClient, generate_image_quick
 
 
 def exemplo_basico():
