@@ -16,16 +16,22 @@ from core.voice import tts_scenes
 from core.subtitle import generate_subtitles
 from core.assemble import assemble_video
 
-def main(theme):
+def main(theme, voice_provider='auto', voice_type='narrator', language=None):
     """
     Main function to generate a video from a theme.
+    
+    Args:
+        theme (str): The theme for the video
+        voice_provider (str): TTS provider ('auto', 'elevenlabs', 'gtts')
+        voice_type (str): Voice type ('narrator', 'male', 'female', 'child')
+        language (str): Language code (e.g., 'pt-br', 'en-us')
     """
     print(f"🎬 Starting video generation for theme: '{theme}'")
 
     # Generate a unique ID for this video run
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     video_id = f"video_{theme.replace(' ', '_').lower()}_{timestamp}"
-    video_output_dir = os.path.join("output", video_id)
+    video_output_dir = os.path.join("outputs", "videos", video_id)
 
     # Create output directories
     os.makedirs(video_output_dir, exist_ok=True)
@@ -68,9 +74,21 @@ def main(theme):
 
     # Step 4: Generate audio for each scene
     print("\n🎙️ Step 4: Generating audio...")
+    print(f"   -> Using TTS provider: {voice_provider}")
+    if voice_type != 'narrator':
+        print(f"   -> Voice type: {voice_type}")
+    if language:
+        print(f"   -> Language: {language}")
+    
     # Pass the audio output directory to voice
     audio_output_dir = os.path.join(video_output_dir, "audio")
-    audio_paths = tts_scenes(script_data, audio_output_dir)
+    audio_paths = tts_scenes(
+        script_data, 
+        audio_output_dir,
+        provider=voice_provider,
+        voice_type=voice_type,
+        language=language
+    )
     if not audio_paths:
         print("   -> Audio generation failed. Aborting.")
         return False
@@ -102,6 +120,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a short AI comic-style video from a theme.")
     parser.add_argument("--theme", type=str, help="The theme of the video (e.g., 'Cyberpunk city exploration').")
     parser.add_argument("--test", action="store_true", help="Run in test mode using existing files (no API calls)")
+    
+    # Voice configuration options
+    parser.add_argument("--voice-provider", type=str, default="auto", 
+                       choices=["auto", "elevenlabs", "gtts"],
+                       help="TTS provider to use (default: auto - prefers ElevenLabs if available)")
+    parser.add_argument("--voice-type", type=str, default="narrator",
+                       choices=["narrator", "male", "female", "child"],
+                       help="Voice type for narration (default: narrator)")
+    parser.add_argument("--language", type=str,
+                       help="Language code for TTS (e.g., 'pt-br', 'en-us'). Auto-detected if not specified.")
+    
     args = parser.parse_args()
 
     # Test mode - use existing files
@@ -118,10 +147,28 @@ if __name__ == "__main__":
     # Check for API keys
     if not os.getenv("GEMINI_API_KEY"):
         print("Error: GEMINI_API_KEY must be set in your .env file.")
-        print("Note: OPENAI_API_KEY is optional (only needed for voice generation if using OpenAI TTS)")
-    elif not os.getenv("OPENAI_API_KEY"):
-        print("Warning: OPENAI_API_KEY not found. Voice generation may fail if using OpenAI TTS.")
-        print("Continuing with Gemini for image generation and subtitles...")
-        main(args.theme)
-    else:
-        main(args.theme)
+        print("Note: ELEVENLABS_API_KEY is optional (only needed for ElevenLabs TTS)")
+        sys.exit(1)
+    
+    # Check ElevenLabs API key if specifically requested
+    if args.voice_provider == "elevenlabs" and not os.getenv("ELEVENLABS_API_KEY"):
+        print("Error: ELEVENLABS_API_KEY must be set in your .env file when using --voice-provider elevenlabs.")
+        print("Tip: Use --voice-provider auto or gtts as alternatives.")
+        sys.exit(1)
+    
+    # Show voice configuration info
+    if args.voice_provider != "auto" or args.voice_type != "narrator" or args.language:
+        print("\n🎙️ Voice Configuration:")
+        print(f"   -> Provider: {args.voice_provider}")
+        print(f"   -> Voice type: {args.voice_type}")
+        if args.language:
+            print(f"   -> Language: {args.language}")
+        print()
+    
+    # Run main function with voice parameters
+    main(
+        args.theme,
+        voice_provider=args.voice_provider,
+        voice_type=args.voice_type,
+        language=args.language
+    )

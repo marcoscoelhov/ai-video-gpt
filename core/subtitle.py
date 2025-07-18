@@ -167,7 +167,7 @@ if __name__ == '__main__':
         print("Error: GEMINI_API_KEY environment variable not set.")
     else:
         # Testar com arquivo de áudio existente
-        test_audio_file = "output/video_um_robô_explorando_uma_cidade_futurística_20250715_201003/audio/audio_scene_01.mp3"
+        test_audio_file = "outputs/videos/video_um_robô_explorando_uma_cidade_futurística_20250715_201003/audio/audio_scene_01.mp3"
         test_output_dir = "test_output_subtitles"
         os.makedirs(test_output_dir, exist_ok=True)
         

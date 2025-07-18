@@ -1,0 +1,7 @@
+1
+00:00:00,000 --> 00:00:03,000
+Teste do estilo casquinha
+
+2
+00:00:03,100 --> 00:00:06,000
+Usando arquivos reutilizados

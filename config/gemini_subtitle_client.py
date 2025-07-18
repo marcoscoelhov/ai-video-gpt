@@ -622,7 +622,7 @@ if __name__ == "__main__":
     print("🧪 Teste da GeminiSubtitleClient")
     
     # Verificar se existe arquivo de áudio para teste
-    test_audio = "output/video_um_robô_explorando_uma_cidade_futurística_20250715_201003/audio/audio_scene_01.mp3"
+    test_audio = "outputs/videos/video_um_robô_explorando_uma_cidade_futurística_20250715_201003/audio/audio_scene_01.mp3"
     
     if os.path.exists(test_audio):
         try:

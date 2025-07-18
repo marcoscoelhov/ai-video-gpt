@@ -196,6 +196,6 @@ def assemble_video(image_paths, audio_paths, subtitle_path, final_video_path, su
 if __name__ == '__main__':
     # Example usage for testing
     # This part needs dummy files to run
-    print("Please provide dummy image and audio files in 'output/' for testing assemble.py")
-    print("Example: python assemble.py image1.png audio1.mp3 image2.png audio2.mp3 output/final.mp4")
+    print("Please provide dummy image and audio files in 'outputs/videos/' for testing assemble.py")
+    print("Example: python assemble.py image1.png audio1.mp3 image2.png audio2.mp3 outputs/videos/final.mp4")
     # For a full test, run main.py after all refactoring is done.

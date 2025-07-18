@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 class CostTracker:
     """Tracks costs for various AI services used in the project."""
     
-    def __init__(self, output_dir: str = "output"):
+    def __init__(self, output_dir: str = "outputs/reports"):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(exist_ok=True)
         self.costs: List[Dict] = []
@@ -86,5 +86,5 @@ class CostTracker:
 # Legacy compatibility function
 def generate_cost_report():
     """Legacy function for backward compatibility."""
-    with open("output/costs.log", "a") as f:
+    with open("outputs/reports/costs.log", "a") as f:
         f.write(f"Cost report generated at {datetime.datetime.now().isoformat()}\n")

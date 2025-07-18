@@ -29,7 +29,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 class DemoSystem:
     def __init__(self):
-        self.output_dir = Path("output/demos")
+        self.output_dir = Path("outputs/demos")
         self.output_dir.mkdir(exist_ok=True)
         
         # Configurações de demo
@@ -178,7 +178,7 @@ class DemoSystem:
             client = GeminiSubtitleClient()
             
             # Verifica se existe arquivo de áudio de exemplo
-            audio_files = list(Path("output").glob("*.mp3"))
+            audio_files = list(Path("outputs/videos").glob("**/*.mp3"))
             
             if audio_files:
                 audio_file = audio_files[0]

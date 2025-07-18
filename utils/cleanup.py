@@ -24,7 +24,7 @@ class CleanupSystem:
     def __init__(self, dry_run=False):
         self.dry_run = dry_run
         self.project_root = Path(".")
-        self.output_dir = Path("output")
+        self.output_dir = Path("outputs")
         
         # Configurações de limpeza
         self.cleanup_config = {
@@ -291,7 +291,7 @@ class CleanupSystem:
         
         if not self.dry_run and (self.stats['files_removed'] > 0 or self.stats['dirs_removed'] > 0):
             report = self.generate_cleanup_report()
-            print(f"📋 Relatório salvo em: output/cleanup_report.json")
+            print(f"📋 Relatório salvo em: outputs/reports/cleanup_report.json")
         
         print("\n✅ Limpeza concluída!")
 

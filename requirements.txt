@@ -4,12 +4,16 @@ google-genai>=0.3.0
 # Dependências existentes
 google-generativeai
 python-dotenv
-coqui-tts
 requests
 Pillow
 gtts
 moviepy
 ffmpeg-python
 opencv-python
+
+# ElevenLabs TTS (nova dependência para narração avançada)
+elevenlabs>=0.2.26
+
+# Removidas temporariamente: coqui-tts (problemas de compatibilidade)
 
 # Removidas: google-cloud-aiplatform e vertexai (substituídas por google-genai)

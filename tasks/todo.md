@@ -181,6 +181,149 @@ Esta é uma aplicação Python que **gera vídeos curtos automaticamente usando 
 
 ---
 
+## 🎙️ Migração de Narração para ElevenLabs
+
+### 📋 Contexto da Migração
+Atualmente o sistema usa **gTTS (Google Text-to-Speech)** para gerar a narração dos vídeos. A migração para **ElevenLabs** oferecerá:
+
+**Benefícios do ElevenLabs:**
+- ✨ **Qualidade Superior**: Vozes mais naturais e realistas
+- 🎭 **Variedade de Vozes**: Múltiplas opções de vozes e estilos
+- 🌍 **Multilíngue**: Melhor suporte para português brasileiro
+- ⚡ **Controle Avançado**: Ajustes de velocidade, tom e emoção
+- 🔊 **Qualidade de Áudio**: Melhor qualidade de saída
+
+### 🎯 Objetivos da Migração
+1. Substituir gTTS por ElevenLabs mantendo compatibilidade
+2. Adicionar configurações para seleção de voz
+3. Manter interface simples para o usuário
+4. Preservar funcionalidade existente
+5. Adicionar opções avançadas de configuração
+
+### 📋 Plano de Migração
+
+#### ✅ Fase 1: Preparação e Configuração - CONCLUÍDA
+- [x] Instalar dependência `elevenlabs` no requirements.txt
+- [x] Criar configuração para API key do ElevenLabs
+- [x] Pesquisar vozes disponíveis e criar lista de opções
+- [x] Definir configurações padrão (voz, velocidade, etc.)
+
+#### ✅ Fase 2: Implementação do Cliente ElevenLabs - CONCLUÍDA
+- [x] Criar `config/elevenlabs_client.py` com cliente ElevenLabs
+- [x] Implementar função de listagem de vozes disponíveis
+- [x] Implementar função de geração de áudio
+- [x] Adicionar tratamento de erros e fallback para gTTS
+- [x] Implementar detecção de disponibilidade da API
+
+#### ✅ Fase 3: Atualização do Módulo de Voz - CONCLUÍDA
+- [x] Modificar `core/voice.py` para suportar ElevenLabs
+- [x] Adicionar parâmetro de seleção de provedor (gTTS/ElevenLabs)
+- [x] Implementar seleção automática de idioma para vozes
+- [x] Manter compatibilidade com código existente
+- [x] Adicionar configurações avançadas (voice_type, language)
+
+#### ✅ Fase 4: Configuração e Interface - CONCLUÍDA
+- [x] Adicionar configurações no arquivo principal
+- [x] Criar opções de linha de comando para seleção de voz
+- [x] Implementar configuração via arquivo de ambiente
+- [x] Adicionar validação de API key
+- [x] Criar sistema de fallback inteligente
+
+#### ✅ Fase 5: Testes e Validação - CONCLUÍDA
+- [x] Criar script de teste integrado no módulo voice.py
+- [x] Testar geração de áudio com diferentes vozes
+- [x] Validar fallback automático para gTTS
+- [x] Testar integração com pipeline completo
+- [x] Implementar testes em português e inglês
+
+#### ✅ Fase 6: Documentação e Exemplos - CONCLUÍDA
+- [x] Atualizar documentação com instruções ElevenLabs
+- [x] Criar exemplo de uso com diferentes vozes
+- [x] Documentar configurações disponíveis
+- [x] Criar guia de migração completo (docs/elevenlabs_migration.md)
+- [x] Atualizar .env.example com novas configurações
+
+### 🔧 Detalhes Técnicos
+
+**Estrutura Proposta:**
+```
+config/
+├── elevenlabs_client.py     # Cliente ElevenLabs
+├── voice_config.py          # Configurações de voz
+core/
+├── voice.py                 # Módulo principal (atualizado)
+utils/
+├── voice_utils.py           # Utilitários de voz
+```
+
+**Configurações Planejadas:**
+- `ELEVENLABS_API_KEY` - Chave da API
+- `DEFAULT_VOICE_ID` - Voz padrão
+- `VOICE_PROVIDER` - Provedor (gTTS/ElevenLabs)
+- `VOICE_SPEED` - Velocidade da fala
+- `VOICE_STABILITY` - Estabilidade da voz
+
+**Vozes Sugeridas:**
+- Português Brasileiro: Vozes nativas
+- Inglês: Vozes variadas para diferentes estilos
+- Fallback: gTTS como backup
+
+### ⚠️ Considerações Importantes
+1. **Custo**: ElevenLabs é pago, implementar controle de uso
+2. **Rate Limiting**: Respeitar limites da API
+3. **Fallback**: Manter gTTS como backup
+4. **Qualidade**: Validar qualidade antes de usar
+5. **Configuração**: Facilitar setup para novos usuários
+
+### 🎯 Status Final da Migração
+
+**✅ MIGRAÇÃO PARA ELEVENLABS CONCLUÍDA COM SUCESSO**
+
+#### 📁 Arquivos Criados/Modificados:
+- ✅ `config/voice_config.py` - Configurações centralizadas de voz
+- ✅ `config/elevenlabs_client.py` - Cliente para API do ElevenLabs
+- ✅ `core/voice.py` - Módulo principal atualizado com suporte multi-provedor
+- ✅ `main.py` - Interface de linha de comando atualizada
+- ✅ `generate_tiktok_video.py` - Suporte a ElevenLabs adicionado
+- ✅ `requirements.txt` - Dependência elevenlabs>=0.2.26 adicionada
+- ✅ `.env.example` - Configurações do ElevenLabs documentadas
+- ✅ `docs/elevenlabs_migration.md` - Documentação completa da migração
+
+#### 🚀 Funcionalidades Implementadas:
+- ✅ **Suporte Multi-Provedor**: Auto, ElevenLabs, gTTS
+- ✅ **Fallback Inteligente**: Usa gTTS se ElevenLabs não disponível
+- ✅ **Detecção de Idioma**: Automática baseada no texto
+- ✅ **Tipos de Voz**: narrator, male, female, child
+- ✅ **Interface CLI**: Opções --voice-provider, --voice-type, --language
+- ✅ **Configuração Flexível**: Via .env e parâmetros
+- ✅ **Tratamento de Erros**: Logs detalhados e recuperação automática
+
+#### 🧪 Testes Implementados:
+- ✅ **Teste Multi-Provedor**: Testa auto, ElevenLabs e gTTS
+- ✅ **Teste Multilíngue**: Português e inglês
+- ✅ **Teste de Fallback**: Verifica recuperação automática
+- ✅ **Teste de Configuração**: Valida detecção de API keys
+
+#### 💡 Como Usar:
+```bash
+# Usar ElevenLabs automaticamente (se disponível)
+python main.py --theme "robô futurista" --voice-provider auto
+
+# Forçar ElevenLabs com voz feminina em português
+python main.py --theme "robô futurista" --voice-provider elevenlabs --voice-type female --language pt-br
+
+# Usar apenas gTTS
+python main.py --theme "robô futurista" --voice-provider gtts
+```
+
+#### 📋 Próximos Passos Recomendados:
+1. **Configurar API Key**: Adicionar `ELEVENLABS_API_KEY` no .env
+2. **Testar Qualidade**: Comparar áudio ElevenLabs vs gTTS
+3. **Monitorar Custos**: Acompanhar uso da API ElevenLabs
+4. **Otimizar Configurações**: Ajustar voice_type conforme necessidade
+
+---
+
 ## 🎬 Problemas de Legendas - ✅ RESOLVIDOS
 
 ### ✅ Problemas Resolvidos
