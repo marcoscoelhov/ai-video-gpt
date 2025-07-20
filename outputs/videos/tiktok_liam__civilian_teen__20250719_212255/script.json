@@ -1,0 +1,67 @@
+{
+  "title": "Roteiro Personalizado",
+  "description": "Roteiro fornecido pelo usuário com personagens e vozes personalizadas",
+  "total_scenes": 6,
+  "estimated_duration": 65,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "character": "Liam",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "My laundry machine just screamed at me. I'm not even kidding.",
+      "visual_description": "Cena 1 com Liam"
+    },
+    {
+      "scene_number": 2,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "That’s bad. Did it sound like a scream-scream or more like a haunted-washing-detergent scream?",
+      "visual_description": "Cena 2 com Spider-Man"
+    },
+    {
+      "scene_number": 3,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Perfect! I’ve been dying to interrogate a Whirlpool. Stand back, civilians. Liam – Adam It also just swallowed my hoodie. It growled and… sucked it in.",
+      "visual_description": "Cena 3 com Deadpool"
+    },
+    {
+      "scene_number": 4,
+      "character": "Batman",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "That’s no machine. It’s a stealth unit from LexCorp. Someone activated it.",
+      "visual_description": "Cena 4 com Batman"
+    },
+    {
+      "scene_number": 5,
+      "character": "Hulk",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "voice_name": "Josh",
+      "narration": "Laundry evil?! Hulk smash spin cycle! The Machine (Off-screen AI Voice) Error 404: You are now laundry. Spider-Man – Matthew Guys, it’s moving. It just rolled past me like a giant Roomba on steroids. Deadpool – Elliot It’s headed for the neighbor’s pool! Wait—why is it boiling the water? Liam – Adam My hoodie’s arm is sticking out the hatch… and it’s waving. Batman – William Initiating fabric-neutralizer protocol. Everyone take cover.",
+      "visual_description": "Cena 5 com Hulk"
+    },
+    {
+      "scene_number": 6,
+      "character": "Thanos",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "I infused that washer with Time Cycle energy. It now folds dimensions—and underwear. Deadpool – Elliot Before this thing spins Earth into socks… LIKE and drop this emoji: 🧺",
+      "visual_description": "Cena 6 com Thanos"
+    }
+  ],
+  "metadata": {
+    "created_from": "custom_script",
+    "total_characters": 6,
+    "voices_used": [
+      "Matthew",
+      "William",
+      "Elliot",
+      "Adam",
+      "Josh"
+    ]
+  }
+}

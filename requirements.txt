@@ -7,12 +7,16 @@ python-dotenv
 requests
 Pillow
 gtts
-moviepy
+moviepy>=2.2.1
 ffmpeg-python
 opencv-python
 
 # ElevenLabs TTS (nova dependência para narração avançada)
 elevenlabs>=0.2.26
+
+# Flask para API backend do frontend web
+Flask>=2.3.0
+Flask-CORS>=4.0.0
 
 # Removidas temporariamente: coqui-tts (problemas de compatibilidade)
 

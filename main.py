@@ -9,12 +9,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import modules from new organized structure
-from core.scriptgen import generate_script
-from utils.prompt import scene_prompts
-from core.imagegen import generate_images_from_prompts
-from core.voice import tts_scenes
-from core.subtitle import generate_subtitles
-from core.assemble import assemble_video
+from src.core.scriptgen import generate_script
+from src.utils.prompt import scene_prompts
+from src.core.imagegen import generate_images_from_prompts
+from src.core.voice import tts_scenes
+from src.core.subtitle import generate_subtitles
+from src.core.assemble import assemble_video
+
+# Import centralized configuration
+from src.config import (
+    validate_configuration,
+    print_configuration_status,
+    get_output_directories
+)
 
 def main(theme, voice_provider='auto', voice_type='narrator', language=None):
     """
@@ -26,18 +33,50 @@ def main(theme, voice_provider='auto', voice_type='narrator', language=None):
         voice_type (str): Voice type ('narrator', 'male', 'female', 'child')
         language (str): Language code (e.g., 'pt-br', 'en-us')
     """
-    print(f"🎬 Starting video generation for theme: '{theme}'")
-
+    print(f"🎬 Iniciando geração de vídeo para tema: '{theme}'")
+    
+    # Validar configuração do sistema
+    print("\n🔧 Validando configuração do sistema...")
+    validation = validate_configuration()
+    
+    if not validation['valid']:
+        print("❌ Configuração inválida:")
+        for error in validation['errors']:
+            print(f"  - {error}")
+        return False
+    
+    if validation['warnings']:
+        print("⚠️ Avisos de configuração:")
+        for warning in validation['warnings']:
+            print(f"  - {warning}")
+    
+    # Mostrar status dos serviços
+    services = validation['services_available']
+    print(f"\n📊 Serviços disponíveis:")
+    if services.get('vertex_ai'):
+        print(f"  ✅ Vertex AI Imagen 3 (Principal)")
+    if services.get('gemini'):
+        print(f"  ✅ Gemini 2.0 Flash (Fallback/Texto)")
+    if services.get('elevenlabs'):
+        print(f"  ✅ ElevenLabs TTS")
+    
     # Generate a unique ID for this video run
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     video_id = f"video_{theme.replace(' ', '_').lower()}_{timestamp}"
-    video_output_dir = os.path.join("outputs", "videos", video_id)
+    
+    # Use centralized output directories
+    output_dirs = get_output_directories()
+    print(f"[DEBUG] Diretórios de saída configurados: {output_dirs}")
+    video_output_dir = os.path.join(output_dirs['videos'], video_id)
+    print(f"[DEBUG] Diretório do vídeo: {video_output_dir}")
+    print(f"[DEBUG] Diretório absoluto do vídeo: {os.path.abspath(video_output_dir)}")
 
     # Create output directories
     os.makedirs(video_output_dir, exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "images"), exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "audio"), exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "subtitles"), exist_ok=True)
+    print(f"[DEBUG] Diretórios criados com sucesso")
 
     print(f"   -> Output will be saved to: {video_output_dir}")
 
@@ -144,16 +183,18 @@ if __name__ == "__main__":
     if not args.theme:
         parser.error("--theme é obrigatório no modo normal. Use --test para modo de teste.")
 
-    # Check for API keys
-    if not os.getenv("GEMINI_API_KEY"):
-        print("Error: GEMINI_API_KEY must be set in your .env file.")
-        print("Note: ELEVENLABS_API_KEY is optional (only needed for ElevenLabs TTS)")
+    # Validar configuração antes de iniciar
+    print("\n🔧 Verificando configuração do sistema...")
+    validation = validate_configuration()
+    
+    if not validation['valid']:
+        print("❌ Configuração inválida. Execute 'python src/config.py' para detalhes.")
         sys.exit(1)
     
     # Check ElevenLabs API key if specifically requested
-    if args.voice_provider == "elevenlabs" and not os.getenv("ELEVENLABS_API_KEY"):
-        print("Error: ELEVENLABS_API_KEY must be set in your .env file when using --voice-provider elevenlabs.")
-        print("Tip: Use --voice-provider auto or gtts as alternatives.")
+    if args.voice_provider == "elevenlabs" and not validation['services_available'].get('elevenlabs'):
+        print("Erro: ELEVENLABS_API_KEY deve estar configurado para usar --voice-provider elevenlabs.")
+        print("Dica: Use --voice-provider auto ou gtts como alternativas.")
         sys.exit(1)
     
     # Show voice configuration info

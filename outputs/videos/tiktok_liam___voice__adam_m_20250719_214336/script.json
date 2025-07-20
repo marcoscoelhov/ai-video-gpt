@@ -1,0 +1,41 @@
+{
+  "title": "Roteiro Personalizado",
+  "description": "Roteiro fornecido pelo usuário com personagens e vozes personalizadas",
+  "total_scenes": 3,
+  "estimated_duration": 30,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "character": "Liam",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "My laundry machine just screamed at me. I'm not even kidding.",
+      "visual_description": "Cena 1 com Liam"
+    },
+    {
+      "scene_number": 2,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "That's bad. Did it sound like a scream-scream?",
+      "visual_description": "Cena 2 com Spider-Man"
+    },
+    {
+      "scene_number": 3,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Or was it more like a 'help me I'm dying' scream?",
+      "visual_description": "Cena 3 com Deadpool"
+    }
+  ],
+  "metadata": {
+    "created_from": "custom_script",
+    "total_characters": 3,
+    "voices_used": [
+      "Adam",
+      "Matthew",
+      "Elliot"
+    ]
+  }
+}

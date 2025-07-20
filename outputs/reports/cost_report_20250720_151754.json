@@ -1,0 +1,16 @@
+{
+  "session_start": "2025-07-20T15:17:54.359786",
+  "session_end": "2025-07-20T15:18:06.353159",
+  "total_cost_usd": 0.01,
+  "cost_by_service": {
+    "gemini_image_generation": 0.01
+  },
+  "detailed_costs": [
+    {
+      "timestamp": "2025-07-20T15:18:06.352635",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    }
+  ]
+}

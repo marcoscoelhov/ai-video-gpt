@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 AI Video GPT - Gerador de Vídeos com IA</title>
+    <link rel="stylesheet" href="/frontend/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🎬</span>
+                <h1 class="logo-text">AI Video GPT</h1>
+            </div>
+            <p class="subtitle">Gerador de Vídeos com Inteligência Artificial</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Video Generation Form -->
+            <section class="generation-section" id="generation-section">
+                <div class="card">
+                    <h2 class="section-title">
+                        <span class="title-icon">✨</span>
+                        Criar Novo Vídeo
+                    </h2>
+                    
+                    <form id="video-form" class="video-form">
+                        <!-- Script Input -->
+                        <div class="form-group">
+                            <label for="script" class="form-label">
+                                <span class="label-icon">🎭</span>
+                                Roteiro do Vídeo
+                            </label>
+                            <textarea 
+                                id="script" 
+                                name="script" 
+                                class="form-input form-textarea script-textarea" 
+                                placeholder="Cole aqui o roteiro com personagens e vozes...&#10;&#10;Exemplo:&#10;Liam (Civilian Teen) – Voice: Adam&#10;My laundry machine just screamed at me.&#10;&#10;Spider-Man – Voice: Matthew&#10;That's bad. Did it sound like a scream-scream?"
+                                required
+                                rows="8"
+                            ></textarea>
+                            <div class="script-info">
+                                <span class="script-counter">
+                                    <span id="script-char-count">0</span> caracteres • 
+                                    <span id="scene-count">0</span> cenas detectadas
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Image Prompts Input -->
+                        <div class="form-group">
+                            <label for="image-prompts" class="form-label">
+                                <span class="label-icon">🎨</span>
+                                Prompts das Imagens
+                            </label>
+                            <textarea 
+                                id="image-prompts" 
+                                name="image_prompts" 
+                                class="form-input form-textarea prompts-textarea" 
+                                placeholder="Cole aqui os prompts das imagens organizados por cenas...&#10;&#10;Exemplo:&#10;Scene 1:&#10;\"A 3D cartoon teenager standing in front of a laundry machine...\"&#10;&#10;Scene 2:&#10;\"Spider-Man clinging to the ceiling of the laundry room...\""
+                                required
+                                rows="6"
+                            ></textarea>
+                            <div class="prompts-info">
+                                <span class="prompts-counter">
+                                    <span id="prompts-char-count">0</span> caracteres • 
+                                    <span id="prompts-scene-count">0</span> prompts detectados
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Generate Button -->
+                        <button type="submit" class="generate-btn" id="generate-btn">
+                            <span class="btn-icon">🚀</span>
+                            <span class="btn-text">Gerar Vídeo</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progress-section" style="display: none;">
+                <div class="card">
+                    <h2 class="section-title">
+                        <span class="title-icon">⚡</span>
+                        Gerando Vídeo
+                    </h2>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progress-percentage">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="current-step">
+                        <span class="step-icon">🔄</span>
+                        <span id="current-step-text">Iniciando...</span>
+                    </div>
+                    
+                    <div class="estimated-time">
+                        <span class="time-icon">⏱️</span>
+                        <span>Tempo estimado: 2-5 minutos</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-section" id="result-section" style="display: none;">
+                <div class="card">
+                    <h2 class="section-title success">
+                        <span class="title-icon">✅</span>
+                        Vídeo Gerado com Sucesso!
+                    </h2>
+                    
+                    <div class="video-preview">
+                        <video id="video-player" controls class="video-player">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn download-btn" id="download-btn">
+                            <span class="btn-icon">📥</span>
+                            <span class="btn-text">Download</span>
+                        </button>
+                        
+                        <button class="action-btn secondary-btn" id="new-video-btn">
+                            <span class="btn-icon">🎬</span>
+                            <span class="btn-text">Novo Vídeo</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="error-section" style="display: none;">
+                <div class="card error-card">
+                    <h2 class="section-title error">
+                        <span class="title-icon">❌</span>
+                        Erro na Geração
+                    </h2>
+                    
+                    <div class="error-message">
+                        <p id="error-text">Ocorreu um erro inesperado.</p>
+                    </div>
+                    
+                    <div class="error-actions">
+                        <button class="action-btn secondary-btn" id="retry-btn">
+                            <span class="btn-icon">🔄</span>
+                            <span class="btn-text">Tentar Novamente</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Desenvolvido com ❤️ usando IA • 
+                <a href="#" class="footer-link">Documentação</a> • 
+                <a href="#" class="footer-link">GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-icon" id="toast-icon">ℹ️</span>
+            <span class="toast-message" id="toast-message">Mensagem</span>
+        </div>
+        <button class="toast-close" id="toast-close">×</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Conectando com o servidor...</p>
+        </div>
+    </div>
+
+    <script src="/frontend/script.js"></script>
+</body>
+</html>

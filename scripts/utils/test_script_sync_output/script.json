@@ -1,0 +1,19 @@
+{
+    "title": "Teste de Sincronização de Legendas",
+    "description": "Vídeo para testar o novo sistema de sincronização",
+    "language": "pt-BR",
+    "scenes": [
+        {
+            "id": 1,
+            "text": "Texto curto."
+        },
+        {
+            "id": 2,
+            "text": "Primeira frase. Segunda frase mais longa. Terceira frase final."
+        },
+        {
+            "id": 3,
+            "text": "Uma frase muito longa que deveria ser dividida em múltiplas legendas para melhor legibilidade e compreensão do espectador."
+        }
+    ]
+}

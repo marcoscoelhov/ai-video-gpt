@@ -1,0 +1,21 @@
+{
+  "theme": "teste do sistema configurado",
+  "title": "System Check!",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art style. Close-up on a futuristic robot eye, glowing electric blue, zooming in as it powers on. Wires and circuits visible beneath translucent panels.",
+      "narration": "System initializing..."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Dynamic, fast-paced montage of various systems booting up: holographic displays flickering to life, energy cores surging with power, intricate gears spinning into motion. Digital comic book aesthetic with bold colors and exaggerated perspectives.",
+      "narration": "Diagnostics running..."
+    },
+    {
+      "scene": 3,
+      "visual_description": "Wide shot of the robot now fully operational, standing tall amidst a futuristic cityscape.  Skyline glows with neon lights. Digital comic book style with strong lines and dramatic lighting.",
+      "narration": "Configuration complete!"
+    }
+  ]
+}
