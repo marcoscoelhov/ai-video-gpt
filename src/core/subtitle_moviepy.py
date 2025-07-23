@@ -7,7 +7,8 @@ mantendo compatibilidade com os estilos profissionais existentes.
 import os
 import re
 from typing import List, Tuple, Optional
-from moviepy import TextClip, CompositeVideoClip
+from moviepy.video.tools.subtitles import TextClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
 from .subtitle_styles import SubtitleStyleManager, SubtitleStyle
 
 def parse_srt_file(srt_path: str) -> List[dict]:

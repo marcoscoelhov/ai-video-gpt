@@ -1,0 +1,21 @@
+{
+  "theme": "teste preset dynamic",
+  "title": "Dynamic Duo: Preset Power!",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Close-up on a finger tapping a phone screen. Vibrant, digital comic book art style.  Screen glows with multiple filter/preset options: 'Retro', 'Cyberpunk', 'Fantasy', 'Noir'.",
+      "narration": "Stuck in a creative rut?"
+    },
+    {
+      "scene": 2,
+      "visual_description": "Split screen. Left side shows a dull, grey photo of a cat. Right side shows the same cat photo, now vibrant and stylized with the 'Cyberpunk' preset. Digital comic book art, electric blue and pink hues.",
+      "narration": "Unleash preset power!"
+    },
+    {
+      "scene": 3,
+      "visual_description": "Rapid montage of various photos being transformed by different presets – landscapes, portraits, food. Dynamic transitions, vibrant colors, digital comic book art style. Text overlays pop up with the name of each preset: 'Fantasy', 'Noir', 'Golden Hour'.",
+      "narration": "Transform your world."
+    }
+  ]
+}

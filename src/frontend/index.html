@@ -23,6 +23,38 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <!-- History Section -->
+            <section class="history-section" id="history-section">
+                <div class="card">
+                    <h2 class="section-title">
+                        <span class="title-icon">📚</span>
+                        Histórico de Roteiros e Prompts
+                    </h2>
+                    
+                    <div class="history-controls">
+                        <button class="history-btn" id="toggle-history-btn">
+                            <span class="btn-icon">📋</span>
+                            <span class="btn-text">Ver Histórico</span>
+                        </button>
+                        
+                        <button class="history-btn secondary" id="clear-history-btn">
+                            <span class="btn-icon">🗑️</span>
+                            <span class="btn-text">Limpar Histórico</span>
+                        </button>
+                    </div>
+                    
+                    <div class="history-content" id="history-content" style="display: none;">
+                        <div class="history-empty" id="history-empty">
+                            <p>📝 Nenhum roteiro salvo ainda. Seus roteiros e prompts serão salvos automaticamente após cada geração.</p>
+                        </div>
+                        
+                        <div class="history-list" id="history-list">
+                            <!-- Histórico será preenchido dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Video Generation Form -->
             <section class="generation-section" id="generation-section">
                 <div class="card">
@@ -76,7 +108,74 @@
                             </div>
                         </div>
 
+                        <!-- Image Style Section -->
+                        <div class="form-group image-style-section">
+                            <label class="form-label">
+                                <span class="label-icon">🎨</span>
+                                Estilo Visual das Imagens
+                            </label>
+                            
+                            <div class="image-style-controls">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label for="image-preset" class="form-sublabel">Preset de Estilo</label>
+                                        <select id="image-preset" name="image_preset" class="form-input form-select">
+                                            <option value="">🎯 Padrão (sem preset)</option>
+                                            <option value="3d_cartoon">🎮 3D Cartoon (Pixar + Fortnite)</option>
+                                            <option value="realistic">📸 Realista</option>
+                                            <option value="anime">🌸 Anime</option>
+                                            <option value="digital_art">🎨 Arte Digital</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="image-style-preview">
+                                    <div class="image-preset-description" id="image-preset-description">
+                                        <strong>Padrão:</strong> Usa os prompts originais sem modificações de estilo.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Visual Effects Section -->
+                        <div class="form-group effects-section">
+                            <label class="form-label">
+                                <span class="label-icon">✨</span>
+                                Efeitos Visuais
+                            </label>
+                            
+                            <div class="effects-controls">
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label for="effects-preset" class="form-sublabel">Preset de Efeitos</label>
+                                        <select id="effects-preset" name="effects_preset" class="form-input form-select">
+                                            <option value="professional">🎯 Profissional</option>
+                                            <option value="cinematic">🎬 Cinematográfico</option>
+                                            <option value="dynamic">⚡ Dinâmico</option>
+                                            <option value="subtle">🌟 Sutil</option>
+                                            <option value="none">❌ Sem Efeitos</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-col">
+                                        <label class="form-sublabel">Configuração</label>
+                                        <div class="toggle-container">
+                                            <input type="checkbox" id="enable-effects" name="enable_effects" class="toggle-input" checked>
+                                            <label for="enable-effects" class="toggle-label">
+                                                <span class="toggle-slider"></span>
+                                                <span class="toggle-text">Ativar Efeitos</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="effects-preview">
+                                    <div class="preset-description" id="preset-description">
+                                        <strong>Profissional:</strong> Transições suaves, zoom sutil e correção de cor para um visual polido e profissional.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Generate Button -->
                         <button type="submit" class="generate-btn" id="generate-btn">

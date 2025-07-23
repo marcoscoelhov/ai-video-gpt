@@ -1,0 +1,21 @@
+{
+  "theme": "teste efeitos profissionais",
+  "title": "Unlock Pro Mode",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Close-up on a finger tapping a phone screen.  The screen glows with vibrant, digital comic book art style UI elements, highlighting a button labeled 'Pro Effects'. The background is a blurred cityscape at night, rendered in a similar comic book style.",
+      "narration": "Ready to upgrade your visuals?"
+    },
+    {
+      "scene": 2,
+      "visual_description": "Dynamic split-screen.  Left side shows dull, desaturated footage of a skateboarder attempting a trick and failing. Right side shows the same footage, now color-graded with intense, stylized hues and slow-motion, showcasing the trick flawlessly. The style remains vibrant, digital comic book art.",
+      "narration": "Unlock professional power."
+    },
+    {
+      "scene": 3,
+      "visual_description": "The skateboarder lands the trick, striking a pose.  Dynamic motion lines and stylized light flares surround them, giving the scene a dramatic, comic book cover feel. The backdrop is the vibrant cityscape at night.",
+      "narration": "Go Pro."
+    }
+  ]
+}

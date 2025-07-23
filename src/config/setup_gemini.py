@@ -46,9 +46,11 @@ def install_dependencies():
         # Instalar dependências
         print("   Executando: pip install -r requirements.txt")
         result = subprocess.run(
-            [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"],
+            [sys.executable, "-m", "pip", "install", "-r", str(requirements_file)],
             capture_output=True,
-            text=True
+            text=True,
+            shell=False,  # Never use shell
+            timeout=300   # 5 minute timeout
         )
         
         if result.returncode != 0:

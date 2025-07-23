@@ -1,0 +1,21 @@
+{
+  "theme": "teste preset none",
+  "title": "Beyond the Presets",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art style. Close-up on a hand reaching out, fingers brushing a shimmering, glitching barrier. The barrier is filled with swirling, chaotic colors, like a corrupted digital file.",
+      "narration": "Trapped by the presets."
+    },
+    {
+      "scene": 2,
+      "visual_description": "The hand punches through the barrier.  The colors explode outward in a shockwave, revealing a vast, empty canvas of pure white, stretching to infinity. The art style shifts slightly to a more painterly, ethereal feel.",
+      "narration": "Break free."
+    },
+    {
+      "scene": 3,
+      "visual_description": "The hand begins to draw on the canvas, creating bold, dynamic strokes of vibrant color.  Intricate designs and fantastical landscapes begin to form, showcasing a unique and unrestrained artistic style.",
+      "narration": "Create without limits."
+    }
+  ]
+}

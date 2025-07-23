@@ -22,12 +22,24 @@ except ImportError:
 def check_command_exists(command):
     """Verifica se um comando está disponível no sistema."""
     try:
-        subprocess.run([command, "-version"], 
-                      capture_output=True, 
-                      check=True, 
-                      timeout=10)
+        # Validate command name to prevent injection
+        import re
+        if not re.match(r'^[a-zA-Z0-9._-]+$', command):
+            return False
+        
+        # Use secure subprocess call
+        result = subprocess.run([command, "-version"], 
+                              capture_output=True, 
+                              check=False,  # Don't raise on non-zero exit
+                              timeout=10,
+                              text=True,
+                              shell=False)  # Never use shell
+        
+        # Command exists if it runs without FileNotFoundError
         return True
-    except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
+    except Exception:
         return False
 
 def check_python_package(package_name):

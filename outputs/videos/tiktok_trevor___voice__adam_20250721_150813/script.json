@@ -1,0 +1,124 @@
+{
+  "title": "Roteiro Personalizado",
+  "description": "Roteiro fornecido pelo usuário com personagens e vozes personalizadas",
+  "total_scenes": 13,
+  "estimated_duration": 64,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "character": "Trevor",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "My soda just hissed at me. And not like fizz, more like… “you will not survive.”",
+      "visual_description": "Cena 1 com Trevor"
+    },
+    {
+      "scene_number": 2,
+      "character": "Flash",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "You sure that’s soda? Sounds like it’s carbonated with demons.",
+      "visual_description": "Cena 2 com Flash"
+    },
+    {
+      "scene_number": 3,
+      "character": "Rocket Raccoon",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Relax! I’ll shoot it and drink whatever’s left. Probably lemon-flavored danger.",
+      "visual_description": "Cena 3 com Rocket Raccoon"
+    },
+    {
+      "scene_number": 4,
+      "character": "Shuri",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Olivia",
+      "narration": "Do NOT touch it! That’s a StarkTech container. It was discontinued after… the explosion.",
+      "visual_description": "Cena 4 com Shuri"
+    },
+    {
+      "scene_number": 5,
+      "character": "Green Lantern",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "James",
+      "narration": "Wait... it’s floating now. That’s not a beverage, it’s a threat!",
+      "visual_description": "Cena 5 com Green Lantern"
+    },
+    {
+      "scene_number": 6,
+      "character": "Trevor",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "It’s growling. My Coke just growled and tried to open me.",
+      "visual_description": "Cena 6 com Trevor"
+    },
+    {
+      "scene_number": 7,
+      "character": "Venom",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "Yes. I possessed it. The fizz is... delicious. And now I am... everywhere.",
+      "visual_description": "Cena 7 com Venom"
+    },
+    {
+      "scene_number": 8,
+      "character": "Flash",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "That thing just multiplied! There’s a 12-pack of them growling at me in stereo!",
+      "visual_description": "Cena 8 com Flash"
+    },
+    {
+      "scene_number": 9,
+      "character": "Rocket Raccoon",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "One of them just bit my boot and exploded into sticky sugar!",
+      "visual_description": "Cena 9 com Rocket Raccoon"
+    },
+    {
+      "scene_number": 10,
+      "character": "Shuri",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Olivia",
+      "narration": "I’m launching a magnetic field. We need to deactivate them before they burp in unison.",
+      "visual_description": "Cena 10 com Shuri"
+    },
+    {
+      "scene_number": 11,
+      "character": "Green Lantern",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "James",
+      "narration": "Constructing soda-proof armor… but it smells like cherry lime and fear.",
+      "visual_description": "Cena 11 com Green Lantern"
+    },
+    {
+      "scene_number": 12,
+      "character": "Venom",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "You cannot escape the carbonation. Soon... you’ll all pop.",
+      "visual_description": "Cena 12 com Venom"
+    },
+    {
+      "scene_number": 13,
+      "character": "Rocket Raccoon",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Before we drown in cola chaos—like the video and drop this emoji: 🥤",
+      "visual_description": "Cena 13 com Rocket Raccoon"
+    }
+  ],
+  "metadata": {
+    "created_from": "custom_script",
+    "total_characters": 6,
+    "voices_used": [
+      "James",
+      "Olivia",
+      "Adam",
+      "Elliot",
+      "Matthew",
+      "William"
+    ]
+  }
+}

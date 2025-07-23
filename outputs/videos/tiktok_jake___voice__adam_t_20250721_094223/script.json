@@ -1,0 +1,124 @@
+{
+  "title": "Roteiro Personalizado",
+  "description": "Roteiro fornecido pelo usuário com personagens e vozes personalizadas",
+  "total_scenes": 13,
+  "estimated_duration": 50,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "character": "Jake",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "The elevator in my apartment just whispered, \"Go alone.\"",
+      "visual_description": "Cena 1 com Jake"
+    },
+    {
+      "scene_number": 2,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "What floor were you going to? Hell? 'Cause that’s a red flag, buddy.",
+      "visual_description": "Cena 2 com Spider-Man"
+    },
+    {
+      "scene_number": 3,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Great! Let’s summon some ghosts while we’re at it. Got a Ouija app?",
+      "visual_description": "Cena 3 com Deadpool"
+    },
+    {
+      "scene_number": 4,
+      "character": "Jake",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "It also played baby shark… in reverse.",
+      "visual_description": "Cena 4 com Jake"
+    },
+    {
+      "scene_number": 5,
+      "character": "Batman",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "That’s not paranormal. That’s deliberate. Someone hacked the core systems.",
+      "visual_description": "Cena 5 com Batman"
+    },
+    {
+      "scene_number": 6,
+      "character": "Hulk",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "voice_name": "Josh",
+      "narration": "Elevator say scary stuff? Hulk say SMASH button!",
+      "visual_description": "Cena 6 com Hulk"
+    },
+    {
+      "scene_number": 7,
+      "character": "Elevator",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Synthetic",
+      "narration": "Going down… permanently.",
+      "visual_description": "Cena 7 com Elevator"
+    },
+    {
+      "scene_number": 8,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "Okay, now it’s dripping something. Did it just… bleed oil?",
+      "visual_description": "Cena 8 com Spider-Man"
+    },
+    {
+      "scene_number": 9,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "It’s playing elevator music with demon vocals. That’s new.",
+      "visual_description": "Cena 9 com Deadpool"
+    },
+    {
+      "scene_number": 10,
+      "character": "Jake",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "It shut the doors and called itself… \"The Ascender.\"",
+      "visual_description": "Cena 10 com Jake"
+    },
+    {
+      "scene_number": 11,
+      "character": "Batman",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "Everyone step back. I'm activating a Bat-Pulley Countermeasure.",
+      "visual_description": "Cena 11 com Batman"
+    },
+    {
+      "scene_number": 12,
+      "character": "Thanos",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "You call it cursed. I call it… reborn. The Infinity-Lift is mine.",
+      "visual_description": "Cena 12 com Thanos"
+    },
+    {
+      "scene_number": 13,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Before this thing lifts us straight into another dimension—LIKE and comment this emoji: 🛗",
+      "visual_description": "Cena 13 com Deadpool"
+    }
+  ],
+  "metadata": {
+    "created_from": "custom_script",
+    "total_characters": 7,
+    "voices_used": [
+      "Adam",
+      "Matthew",
+      "Elliot",
+      "Josh",
+      "Synthetic",
+      "William"
+    ]
+  }
+}

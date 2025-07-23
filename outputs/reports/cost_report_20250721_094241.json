@@ -1,0 +1,89 @@
+{
+  "session_start": "2025-07-21T09:42:41.138166",
+  "session_end": "2025-07-21T09:44:12.977351",
+  "total_cost_usd": 0.17,
+  "cost_by_service": {
+    "gemini_image_generation": 0.09,
+    "vertex_ai_image_generation": 0.08
+  },
+  "detailed_costs": [
+    {
+      "timestamp": "2025-07-21T09:42:54.593795",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:04.601448",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:14.562054",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:19.709782",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:23.955967",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:28.369336",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:32.603629",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:37.356108",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:43.001855",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:43:52.444826",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:44:02.055084",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:44:08.288937",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-21T09:44:12.976553",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    }
+  ]
+}

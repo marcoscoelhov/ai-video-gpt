@@ -1,11 +1,14 @@
 import os
 import json
-from moviepy import (
-    VideoFileClip, AudioFileClip, ImageClip, CompositeVideoClip, 
-    concatenate_audioclips, concatenate_videoclips, TextClip
-)
+from moviepy.video.io.VideoFileClip import VideoFileClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
+from moviepy.video.VideoClip import ImageClip
+from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
+from moviepy import concatenate_audioclips, concatenate_videoclips
+from moviepy.video.tools.subtitles import TextClip
 from .subtitle_styles import SubtitleStyleManager, SubtitleStyle
 from .subtitle_moviepy import integrate_moviepy_subtitles
+from .video_effects import apply_video_effects, get_available_presets
 
 def get_audio_duration(audio_path):
     """Gets the duration of an audio file using MoviePy."""
@@ -60,7 +63,8 @@ def concatenate_audios(audio_paths, output_path):
         return None
 
 def assemble_video(image_paths, audio_paths, subtitle_path, final_video_path, 
-                  subtitle_style="modern", script_path=None, use_script_sync=True):
+                  subtitle_style="modern", script_path=None, use_script_sync=True,
+                  effects_preset="professional", enable_effects=True, custom_effects_config=None):
     """
     Assembles a video from a list of images, a list of audio files (one per image/scene),
     and a subtitle file with professional styling using MoviePy.
@@ -73,6 +77,9 @@ def assemble_video(image_paths, audio_paths, subtitle_path, final_video_path,
         subtitle_style: Style name or SubtitleStyle object ('netflix', 'youtube', 'cinema', 'modern', 'accessibility')
         script_path: Path to script.json file (para sincronização baseada em roteiro)
         use_script_sync: Se True, usa sincronização baseada no roteiro (recomendado)
+        effects_preset: Preset de efeitos visuais ('professional', 'dynamic', 'cinematic', 'energetic')
+        enable_effects: Se True, aplica efeitos visuais e transições
+        custom_effects_config: Configuração customizada de efeitos (sobrescreve preset)
     """
     # Debug: mostrar quantos arquivos temos
     print(f"     - Imagens encontradas: {len(image_paths) if image_paths else 0}")
@@ -93,35 +100,46 @@ def assemble_video(image_paths, audio_paths, subtitle_path, final_video_path,
     try:
         print(f"  -> Assembling video to {final_video_path}...")
         
-        # Create video clips from images with corresponding audio durations
-        video_clips = []
-        
-        for i, (img_path, audio_path) in enumerate(zip(image_paths, audio_paths)):
-            if not os.path.exists(img_path):
-                print(f"Warning: Image file not found: {img_path}")
-                continue
+        # Create video clips with effects if enabled
+        if enable_effects:
+            print(f"     - Aplicando efeitos visuais (preset: {effects_preset})...")
+            video_clips = apply_video_effects(
+                image_paths=image_paths,
+                audio_paths=audio_paths,
+                preset=effects_preset,
+                custom_config=custom_effects_config
+            )
+        else:
+            print(f"     - Criando clipes sem efeitos...")
+            # Create video clips from images with corresponding audio durations (método original)
+            video_clips = []
+            
+            for i, (img_path, audio_path) in enumerate(zip(image_paths, audio_paths)):
+                if not os.path.exists(img_path):
+                    print(f"Warning: Image file not found: {img_path}")
+                    continue
+                    
+                if not os.path.exists(audio_path):
+                    print(f"Warning: Audio file not found: {audio_path}")
+                    continue
                 
-            if not os.path.exists(audio_path):
-                print(f"Warning: Audio file not found: {audio_path}")
-                continue
-            
-            # Get audio duration
-            duration = get_audio_duration(audio_path)
-            if duration == 0.0:
-                print(f"Warning: Audio duration for {audio_path} is 0. Using default 5 seconds.")
-                duration = 5.0
-            
-            # Create image clip with duration matching audio
-            img_clip = ImageClip(img_path, duration=duration)
-            
-            # Resize to target resolution (720x1280 for TikTok format)
-            img_clip = img_clip.resized((720, 1280))
-            
-            # Load and attach audio
-            audio_clip = AudioFileClip(audio_path)
-            img_clip = img_clip.with_audio(audio_clip)
-            
-            video_clips.append(img_clip)
+                # Get audio duration
+                duration = get_audio_duration(audio_path)
+                if duration == 0.0:
+                    print(f"Warning: Audio duration for {audio_path} is 0. Using default 5 seconds.")
+                    duration = 5.0
+                
+                # Create image clip with duration matching audio
+                img_clip = ImageClip(img_path, duration=duration)
+                
+                # Resize to target resolution (720x1280 for TikTok format)
+                img_clip = img_clip.resized((720, 1280))
+                
+                # Load and attach audio
+                audio_clip = AudioFileClip(audio_path)
+                img_clip = img_clip.with_audio(audio_clip)
+                
+                video_clips.append(img_clip)
         
         if not video_clips:
             print("Error: No valid video clips created.")
@@ -209,10 +227,22 @@ def assemble_video(image_paths, audio_paths, subtitle_path, final_video_path,
         return None
 
 # Função auxiliar para manter compatibilidade com código existente
-def create_video_from_resources(images_dir, audios_dir, script_path, output_path, subtitle_style="modern"):
+def create_video_from_resources(images_dir, audios_dir, script_path, output_path, 
+                              subtitle_style="modern", effects_preset="professional", 
+                              enable_effects=True, custom_effects_config=None):
     """
     Função auxiliar para criar vídeo a partir de diretórios de recursos.
     Mantém compatibilidade com o código existente.
+    
+    Args:
+        images_dir: Diretório com imagens
+        audios_dir: Diretório com áudios
+        script_path: Caminho para o arquivo script.json
+        output_path: Caminho para o vídeo de saída
+        subtitle_style: Estilo de legendas
+        effects_preset: Preset de efeitos visuais ('professional', 'dynamic', 'cinematic', 'energetic')
+        enable_effects: Se True, aplica efeitos visuais e transições
+        custom_effects_config: Configuração customizada de efeitos (sobrescreve preset)
     """
     try:
         # Carregar script para obter ordem das cenas
@@ -243,8 +273,19 @@ def create_video_from_resources(images_dir, audios_dir, script_path, output_path
                 subtitle_path = subtitle_candidate
                 break
         
-        # Montar vídeo
-        return assemble_video(image_paths, audio_paths, subtitle_path, output_path, subtitle_style)
+        # Montar vídeo com efeitos
+        return assemble_video(
+            image_paths=image_paths, 
+            audio_paths=audio_paths, 
+            subtitle_path=subtitle_path, 
+            final_video_path=output_path, 
+            subtitle_style=subtitle_style,
+            script_path=script_path,
+            use_script_sync=True,
+            effects_preset=effects_preset,
+            enable_effects=enable_effects,
+            custom_effects_config=custom_effects_config
+        )
         
     except Exception as e:
         print(f"Error creating video from resources: {e}")

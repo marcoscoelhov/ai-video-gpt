@@ -2,7 +2,7 @@ import os
 import json
 import re
 from typing import List, Dict, Tuple, Optional
-from moviepy import AudioFileClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 from .subtitle_styles import SubtitleStyleManager, SubtitleStyle
 
 class ScriptSubtitleSynchronizer:

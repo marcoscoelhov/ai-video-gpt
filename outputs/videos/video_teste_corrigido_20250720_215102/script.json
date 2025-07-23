@@ -1,0 +1,21 @@
+{
+  "theme": "teste corrigido",
+  "title": "Nailed It!",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Close-up on a crumpled test paper with a big red 'F' marked on it, in dynamic, brightly colored digital comic book art style, with exaggerated wrinkles and shadows.",
+      "narration": "Epic fail."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Fast-paced montage of studying: textbooks flipping, highlighter streaks, coffee steam swirling, all in a vibrant, kinetic digital comic book style with motion blur.",
+      "narration": "Study montage!"
+    },
+    {
+      "scene": 3,
+      "visual_description": "Close-up on a pristine test paper with a big 'A+' marked in bright green, sparkling and radiating success, vibrant digital comic book art.",
+      "narration": "Redemption achieved."
+    }
+  ]
+}

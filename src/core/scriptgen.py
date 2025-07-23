@@ -5,10 +5,14 @@ import re
 import google.generativeai as genai
 from dotenv import load_dotenv
 
+# Import logging
+from src.utils.logger import get_logger, log_api_call, log_performance
+
 # Load environment variables and configure API
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+@log_performance("script_generation")
 def generate_script(theme):
     """
     Generates a structured script with a title and scenes based on a theme.
@@ -49,8 +53,11 @@ def generate_script(theme):
     Theme: "{theme}"
     """
 
-    print(f"  -> Generating structured script for theme: '{theme}'")
+    logger = get_logger("core.scriptgen")
+    logger.info(f"Generating structured script for theme: '{theme}'", extra={'extra_data': {'theme': theme}})
+    
     try:
+        log_api_call("gemini", "generate_content", {'theme': theme, 'model': 'gemini-1.5-pro-latest'})
         response = model.generate_content(prompt)
         
         # Clean the response to extract only the JSON part
@@ -64,22 +71,27 @@ def generate_script(theme):
 
         # Parse the JSON string into a Python dictionary
         script_data = json.loads(json_str)
-        print("  -> Structured script generated successfully.")
+        logger.info("Structured script generated successfully", extra={'extra_data': {'scenes_count': len(script_data.get('scenes', []))}})
         return script_data
 
     except (json.JSONDecodeError, Exception) as e:
-        print(f"  -> Error generating or parsing structured script: {e}")
-        print(f"  -> Raw response from model:\n{response.text}")
+        logger.error(f"Error generating or parsing structured script: {e}", extra={'extra_data': {'theme': theme, 'error_type': type(e).__name__}})
+        if 'response' in locals():
+            logger.debug(f"Raw response from model: {response.text}")
         return None
 
 if __name__ == '__main__':
+    # Setup logging for testing
+    from src.utils.logger import setup_logging
+    setup_logging(log_level="DEBUG")
+    logger = get_logger("core.scriptgen.test")
+    
     # Example usage for testing
     if not os.getenv("GEMINI_API_KEY"):
-        print("Error: GEMINI_API_KEY environment variable not set.")
+        logger.error("GEMINI_API_KEY environment variable not set")
     else:
         test_theme = "The secret life of garden gnomes"
         generated_script = generate_script(test_theme)
         if generated_script:
-            print("\n--- Generated Script ---")
-            print(json.dumps(generated_script, indent=2))
-            print("------------------------")
+            logger.info("Generated Script:", extra={'extra_data': generated_script})
+            print(json.dumps(generated_script, indent=2))  # Keep print for testing output

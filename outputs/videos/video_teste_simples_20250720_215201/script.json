@@ -1,0 +1,21 @@
+{
+  "theme": "teste simples",
+  "title": "One Button Wonder",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Close-up on a large, shiny red button in a vibrant, minimalist room. Digital comic book art style, with bold outlines and dynamic lighting.  The button glows faintly.",
+      "narration": "Life's complicated."
+    },
+    {
+      "scene": 2,
+      "visual_description": "A finger, dramatically lit from above, reaches out and presses the button.  Sparks fly in a stylized, comic book burst.  Same art style.",
+      "narration": "This isn't."
+    },
+    {
+      "scene": 3,
+      "visual_description": "Wide shot revealing the room transformed into a tropical paradise. Palm trees sway, a hammock swings gently.  Bright, saturated colors, maintaining the digital comic book aesthetic.",
+      "narration": "Simple test, simple solution."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /mnt/c/Users/Marcos/CascadeProjects/ai-video-gpt -name \"*.py\" -exec grep -l \"debug\\|DEBUG\\|print\\|logger\\|logging\" {})",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(python test:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(rm:*)",
+      "Bash(node:*)",
+      "Bash(docker:*)",
+      "Bash(pip install:*)",
+      "Bash(source:*)",
+      "Bash(venv/bin/pip install:*)",
+      "Bash(venv/bin/python:*)",
+      "Bash(REQUIRE_API_KEY=false venv/bin/python app.py)",
+      "Bash(venv/bin/pip list:*)",
+      "Bash(REQUIRE_API_KEY=false python3 app.py)",
+      "Bash(killall:*)",
+      "Bash(REQUIRE_API_KEY=false python3 -c \"\nimport subprocess\nimport threading\nimport time\nimport requests\n\ndef run_server():\n    subprocess.run([''python3'', ''app.py''], env={''REQUIRE_API_KEY'': ''false'', ''FLASK_RUN_PORT'': ''8000''})\n\n# Rodar servidor em thread separada\nthread = threading.Thread(target=run_server)\nthread.daemon = True\nthread.start()\n\ntime.sleep(3)\n\n# Testar health check\ntry:\n    response = requests.get(''http://localhost:5000/api/health'', timeout=5)\n    print(''Health check:'', response.status_code, response.json())\nexcept Exception as e:\n    print(''Health check failed:'', str(e))\n\")"
+    ],
+    "deny": []
+  }
+}

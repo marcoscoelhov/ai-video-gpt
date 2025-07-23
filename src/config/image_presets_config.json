@@ -1,0 +1,26 @@
+{
+  "image_presets": {
+  "3d_cartoon": {
+    "name": "3D Cartoon",
+    "description": "Estilo de animação 3D com características exageradas, cores vibrantes e aparência lúdica, similar aos filmes da Pixar e DreamWorks.",
+    "prompt": "A highly detailed 3D cartoon scene in vertical format (9:16), featuring expressive, stylized characters in a unified visual style inspired by Pixar and Fortnite — exaggerated proportions, rounded features, and vibrant, saturated colors. The scene takes place inside a modern residential building, part of a coherent environment that includes areas like elevators, corridors, living rooms, kitchens, or balconies, all visually consistent in architecture, wall textures, and flooring style. Characters have cartoonish outfits (big shoes, colorful accessories, exaggerated hats or backpacks), with expressive facial features (large eyes, exaggerated emotions), and dynamic poses that clearly convey action or emotion (joy, fear, surprise, determination). Lighting is soft and stylized, with cartoon-style shadows and exaggerated highlights on metallic surfaces (like door handles, appliances, elevator panels). Use a bold color palette dominated by saturated purples, reds, and blues, applied consistently across background elements, clothing, and props. Keep the art style consistent across all characters and environment details — clean lines, soft textures, no realism, all in stylized 3D cartoon. The final image must be in portrait orientation (9:16) and look like a frame from a stylized animated movie."
+  },
+    "realistic": {
+      "name": "Realista",
+      "description": "Imagens fotorrealistas com iluminação natural, proporções precisas e texturas detalhadas que parecem fotografias reais.",
+      "prompt": "Generate a photorealistic image with natural lighting, accurate proportions, detailed textures, and lifelike colors. Focus on creating an image that looks like a high-quality photograph with realistic shadows and depth."
+    },
+    "anime": {
+      "name": "Anime",
+      "description": "Estilo de ilustração japonesa com olhos expressivos grandes, proporções estilizadas e cores vibrantes característicos do anime.",
+      "prompt": "Create an anime-style illustration with characteristic large expressive eyes, stylized proportions, vibrant colors, and clean line art. Use the distinctive Japanese animation aesthetic with dramatic lighting and emotional expressions."
+    },
+    "digital_art": {
+      "name": "Arte Digital",
+      "description": "Arte digital moderna com elementos estilizados, composição criativa e efeitos visuais artísticos contemporâneos.",
+      "prompt": "Generate a modern digital artwork with artistic flair, creative composition, and stylized elements. Use contemporary digital art techniques with enhanced colors, artistic filters, and creative visual effects."
+    }
+  },
+  "default_preset": null,
+  "description": "Configuração dos presets de imagem para o AI Video GPT. Cada preset contém um nome de exibição, descrição e um prompt específico que será aplicado às imagens geradas."
+}

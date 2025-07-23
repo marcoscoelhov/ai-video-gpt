@@ -11,7 +11,9 @@ Para lista de prompts estruturados.
 """
 
 import re
-from typing import List, Dict, Any, Optional
+import json
+import os
+from typing import List, Dict, Optional, Any
 
 
 def parse_image_prompts(prompts_text: str) -> Optional[List[str]]:
@@ -233,35 +235,80 @@ def get_prompts_preview(prompts_text: str, max_prompts: int = 3) -> str:
     return "\n".join(preview_lines)
 
 
-def enhance_prompts_for_consistency(prompts: List[str], style_guide: str = "3D cartoon") -> List[str]:
-    """Melhora prompts para consistência visual.
+def load_image_presets_config():
+    """Carrega a configuração dos presets de imagem do arquivo JSON.
+    
+    Returns:
+        Dict com a configuração dos presets
+    """
+    try:
+        config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'image_presets_config.json')
+        with open(config_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Erro ao carregar configuração de presets: {e}")
+        # Fallback para configuração padrão
+        return {
+            "image_presets": {
+                "3d_cartoon": {
+                    "name": "3D Cartoon",
+                    "prompt": "Create a vibrant 3D cartoon-style image with rounded, exaggerated features, bright colors, and a playful, animated appearance. Use soft lighting and smooth textures typical of modern 3D animation studios."
+                },
+                "realistic": {
+                    "name": "Realista",
+                    "prompt": "Generate a photorealistic image with natural lighting, accurate proportions, detailed textures, and lifelike colors. Focus on creating an image that looks like a high-quality photograph with realistic shadows and depth."
+                },
+                "anime": {
+                    "name": "Anime",
+                    "prompt": "Create an anime-style illustration with characteristic large expressive eyes, stylized proportions, vibrant colors, and clean line art. Use the distinctive Japanese animation aesthetic with dramatic lighting and emotional expressions."
+                },
+                "digital_art": {
+                    "name": "Arte Digital",
+                    "prompt": "Generate a modern digital artwork with artistic flair, creative composition, and stylized elements. Use contemporary digital art techniques with enhanced colors, artistic filters, and creative visual effects."
+                }
+            }
+        }
+
+
+def enhance_prompts_for_consistency(prompts: List[str], preset: Optional[str] = None) -> List[str]:
+    """Aprimora prompts de imagem para garantir consistência visual.
     
     Args:
-        prompts: Lista de prompts originais
-        style_guide: Guia de estilo a ser aplicado
-        
+        prompts: Lista de prompts de imagem
+        preset: Preset de estilo a ser aplicado ('3d_cartoon', 'realistic', 'anime', 'digital_art')
+    
     Returns:
-        Lista de prompts melhorados
+        Lista de prompts aprimorados
     """
-    enhanced = []
+    if not prompts:
+        return []
+    
+    # Carregar configuração dos presets
+    config = load_image_presets_config()
+    preset_styles = {}
+    
+    for preset_key, preset_data in config.get('image_presets', {}).items():
+        preset_styles[preset_key] = preset_data.get('prompt', '')
+    
+    enhanced_prompts = []
     
     for prompt in prompts:
-        # Adicionar guia de estilo se não presente
-        if style_guide.lower() not in prompt.lower():
-            enhanced_prompt = f"{style_guide} style, {prompt}"
-        else:
-            enhanced_prompt = prompt
+        enhanced_prompt = prompt.strip()
         
-        # Adicionar qualificadores de qualidade
-        quality_terms = ["high quality", "detailed", "professional", "4k", "hd"]
-        has_quality = any(term in enhanced_prompt.lower() for term in quality_terms)
+        # Aplicar preset se especificado
+        if preset and preset in preset_styles:
+            enhanced_prompt = f"{preset_styles[preset]} {enhanced_prompt}"
         
-        if not has_quality:
-            enhanced_prompt += ", high quality, detailed"
+        # Adicionar instruções de consistência
+        consistency_instructions = (
+            "Maintain consistent lighting, color palette, and visual style throughout. "
+            "Ensure high quality, detailed, and professional appearance."
+        )
         
-        enhanced.append(enhanced_prompt)
+        enhanced_prompt = f"{enhanced_prompt} {consistency_instructions}"
+        enhanced_prompts.append(enhanced_prompt)
     
-    return enhanced
+    return enhanced_prompts
 
 
 if __name__ == "__main__":

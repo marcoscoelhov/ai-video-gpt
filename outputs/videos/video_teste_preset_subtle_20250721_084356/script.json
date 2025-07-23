@@ -1,0 +1,21 @@
+{
+  "theme": "teste preset subtle",
+  "title": "Subtle Shifts",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art style. Close-up on a woman's eye.  Her iris is a deep, shimmering emerald green.",
+      "narration": "Everything seemed normal."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Same style and close-up.  Now, a thin, golden ring encircles her pupil. The background begins to subtly swirl with soft pastel colors.",
+      "narration": "Until the smallest change…"
+    },
+    {
+      "scene": 3,
+      "visual_description": "Zooming out slightly.  The golden ring now pulsates with light.  Feathery, iridescent wings unfurl from behind her, filling the frame with vibrant colors.",
+      "narration": "Unlocked something extraordinary."
+    }
+  ]
+}

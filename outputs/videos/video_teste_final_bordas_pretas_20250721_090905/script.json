@@ -1,0 +1,21 @@
+{
+  "theme": "teste final bordas pretas",
+  "title": "Edge of the Unknown",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art. A lone figure stands silhouetted against a blinding white light, surrounded by a thick, irregular black border. The figure reaches a hand towards the light.",
+      "narration": "The final test."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Close-up on the figure's hand. The black border encroaches, tendrils creeping in from the edges, swirling like ink in water.",
+      "narration": "Embrace the darkness."
+    },
+    {
+      "scene": 3,
+      "visual_description": "The black border consumes the figure completely, leaving only a vibrant, swirling vortex of black against the white light.",
+      "narration": "And face the unknown."
+    }
+  ]
+}

@@ -5,6 +5,9 @@ import json
 import datetime
 from dotenv import load_dotenv
 
+# Import logging system
+from src.utils.logger import setup_logging, get_logger, log_video_generation_step, log_performance
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -23,7 +26,9 @@ from src.config import (
     get_output_directories
 )
 
-def main(theme, voice_provider='auto', voice_type='narrator', language=None):
+@log_performance("video_generation_complete")
+def main(theme, voice_provider='auto', voice_type='narrator', language=None, 
+         effects_preset='professional', enable_effects=True):
     """
     Main function to generate a video from a theme.
     
@@ -32,33 +37,37 @@ def main(theme, voice_provider='auto', voice_type='narrator', language=None):
         voice_provider (str): TTS provider ('auto', 'elevenlabs', 'gtts')
         voice_type (str): Voice type ('narrator', 'male', 'female', 'child')
         language (str): Language code (e.g., 'pt-br', 'en-us')
+        effects_preset (str): Visual effects preset ('professional', 'dynamic', 'cinematic', 'energetic')
+        enable_effects (bool): Whether to apply visual effects and transitions
     """
-    print(f"🎬 Iniciando geração de vídeo para tema: '{theme}'")
+    logger = get_logger("main")
+    logger.info(f"🎬 Iniciando geração de vídeo para tema: '{theme}'", extra={'extra_data': {'theme': theme, 'voice_provider': voice_provider, 'voice_type': voice_type}})
     
     # Validar configuração do sistema
-    print("\n🔧 Validando configuração do sistema...")
+    log_video_generation_step("configuration_validation", {'theme': theme})
+    logger.info("🔧 Validando configuração do sistema...")
     validation = validate_configuration()
     
     if not validation['valid']:
-        print("❌ Configuração inválida:")
+        logger.error("❌ Configuração inválida:", extra={'extra_data': {'errors': validation['errors']}})
         for error in validation['errors']:
-            print(f"  - {error}")
+            logger.error(f"  - {error}")
         return False
     
     if validation['warnings']:
-        print("⚠️ Avisos de configuração:")
+        logger.warning("⚠️ Avisos de configuração:", extra={'extra_data': {'warnings': validation['warnings']}})
         for warning in validation['warnings']:
-            print(f"  - {warning}")
+            logger.warning(f"  - {warning}")
     
     # Mostrar status dos serviços
     services = validation['services_available']
-    print(f"\n📊 Serviços disponíveis:")
+    logger.info("📊 Serviços disponíveis:", extra={'extra_data': {'services_available': services}})
     if services.get('vertex_ai'):
-        print(f"  ✅ Vertex AI Imagen 3 (Principal)")
+        logger.info("  ✅ Vertex AI Imagen 3 (Principal)")
     if services.get('gemini'):
-        print(f"  ✅ Gemini 2.0 Flash (Fallback/Texto)")
+        logger.info("  ✅ Gemini 2.0 Flash (Fallback/Texto)")
     if services.get('elevenlabs'):
-        print(f"  ✅ ElevenLabs TTS")
+        logger.info("  ✅ ElevenLabs TTS")
     
     # Generate a unique ID for this video run
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -66,58 +75,60 @@ def main(theme, voice_provider='auto', voice_type='narrator', language=None):
     
     # Use centralized output directories
     output_dirs = get_output_directories()
-    print(f"[DEBUG] Diretórios de saída configurados: {output_dirs}")
+    logger.debug("Diretórios de saída configurados", extra={'extra_data': {'output_dirs': output_dirs}})
     video_output_dir = os.path.join(output_dirs['videos'], video_id)
-    print(f"[DEBUG] Diretório do vídeo: {video_output_dir}")
-    print(f"[DEBUG] Diretório absoluto do vídeo: {os.path.abspath(video_output_dir)}")
+    logger.debug("Configuração de diretórios", extra={'extra_data': {'video_output_dir': video_output_dir, 'absolute_path': os.path.abspath(video_output_dir)}})
 
     # Create output directories
     os.makedirs(video_output_dir, exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "images"), exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "audio"), exist_ok=True)
     os.makedirs(os.path.join(video_output_dir, "subtitles"), exist_ok=True)
-    print(f"[DEBUG] Diretórios criados com sucesso")
-
-    print(f"   -> Output will be saved to: {video_output_dir}")
+    logger.info("Diretórios criados com sucesso")
+    logger.info(f"Output será salvo em: {video_output_dir}")
 
     # Step 1: Generate structured script
-    print("\n📝 Step 1: Generating structured script...")
+    log_video_generation_step("script_generation", {'theme': theme})
+    logger.info("📝 Step 1: Gerando roteiro estruturado...")
     script_data = generate_script(theme)
     if not script_data:
-        print("   -> Script generation failed. Aborting.")
+        logger.error("Falha na geração do roteiro. Abortando.", extra={'extra_data': {'theme': theme}})
         return False
     
     # Save the structured script
     script_path = os.path.join(video_output_dir, "script.json")
     with open(script_path, "w", encoding="utf-8") as f:
         json.dump(script_data, f, indent=2, ensure_ascii=False)
-    print(f"   -> Structured script saved to: {script_path}")
+    logger.info(f"Roteiro estruturado salvo em: {script_path}")
 
     # Step 2: Generate image prompts from structured script
-    print("\n🎨 Step 2: Generating image prompts...")
+    log_video_generation_step("image_prompts_generation")
+    logger.info("🎨 Step 2: Gerando prompts de imagem...")
     prompts = scene_prompts(script_data)
     if not prompts:
-        print("   -> No image prompts generated. Aborting.")
+        logger.error("Nenhum prompt de imagem gerado. Abortando.")
         return False
-    print(f"   -> {len(prompts)} prompts extracted from script.")
+    logger.info(f"{len(prompts)} prompts extraídos do roteiro.")
 
     # Step 3: Generate images
-    print("\n🖼️ Step 3: Generating images...")
+    log_video_generation_step("image_generation", {'prompts_count': len(prompts)})
+    logger.info("🖼️ Step 3: Gerando imagens...")
     # Pass the image output directory to imagegen
     image_output_dir = os.path.join(video_output_dir, "images")
     image_paths = generate_images_from_prompts(prompts, image_output_dir)
     if not image_paths:
-        print("   -> Image generation failed. Aborting.")
+        logger.error("Falha na geração de imagens. Abortando.")
         return False
-    print(f"   -> {len(image_paths)} images generated successfully.")
+    logger.info(f"{len(image_paths)} imagens geradas com sucesso.")
 
     # Step 4: Generate audio for each scene
-    print("\n🎙️ Step 4: Generating audio...")
-    print(f"   -> Using TTS provider: {voice_provider}")
+    log_video_generation_step("audio_generation", {'voice_provider': voice_provider, 'voice_type': voice_type, 'language': language})
+    logger.info("🎙️ Step 4: Gerando áudio...", extra={'extra_data': {'voice_provider': voice_provider, 'voice_type': voice_type, 'language': language}})
+    logger.info(f"Usando provedor TTS: {voice_provider}")
     if voice_type != 'narrator':
-        print(f"   -> Voice type: {voice_type}")
+        logger.info(f"Tipo de voz: {voice_type}")
     if language:
-        print(f"   -> Language: {language}")
+        logger.info(f"Idioma: {language}")
     
     # Pass the audio output directory to voice
     audio_output_dir = os.path.join(video_output_dir, "audio")
@@ -129,33 +140,48 @@ def main(theme, voice_provider='auto', voice_type='narrator', language=None):
         language=language
     )
     if not audio_paths:
-        print("   -> Audio generation failed. Aborting.")
+        logger.error("Falha na geração de áudio. Abortando.")
         return False
-    print(f"   -> {len(audio_paths)} audio files generated successfully.")
+    logger.info(f"{len(audio_paths)} arquivos de áudio gerados com sucesso.")
 
     # Step 5: Generate subtitles using Gemini 2.0 Flash
-    print("\n📜 Step 5: Generating subtitles...")
+    log_video_generation_step("subtitle_generation")
+    logger.info("📜 Step 5: Gerando legendas...")
     # Use the generated audio files to create subtitles with Gemini
     subtitle_output_dir = os.path.join(video_output_dir, "subtitles")
     subtitle_path = generate_subtitles(audio_paths, subtitle_output_dir, script_path)
     if not subtitle_path:
-        print("   -> Subtitle generation failed. Aborting.")
+        logger.error("Falha na geração de legendas. Abortando.")
         return False
-    print(f"   -> Subtitles generated at: {subtitle_path}")
+    logger.info(f"Legendas geradas em: {subtitle_path}")
 
-    # Step 6: Assemble video
-    print("\n🎞️ Step 6: Assembling video...")
+    # Step 6: Assemble video with effects
+    log_video_generation_step("video_assembly", {'effects_preset': effects_preset, 'enable_effects': enable_effects})
+    logger.info("🎞️ Step 6: Montando vídeo com efeitos visuais...", extra={'extra_data': {'effects_preset': effects_preset, 'enable_effects': enable_effects}})
     # Pass all generated image and audio paths, and the final video output path
     final_video_path = os.path.join(video_output_dir, f"{video_id}.mp4")
-    video_path = assemble_video(image_paths, audio_paths, subtitle_path, final_video_path, subtitle_style="modern")
+    video_path = assemble_video(
+         image_paths=image_paths, 
+         audio_paths=audio_paths, 
+         subtitle_path=subtitle_path, 
+         final_video_path=final_video_path, 
+         subtitle_style="modern",
+         script_path=script_path,
+         use_script_sync=True,
+         effects_preset=effects_preset,
+         enable_effects=enable_effects
+     )
     if video_path:
-        print(f"\n✅ Video successfully assembled at: {video_path}")
+        log_video_generation_step("video_completed", {'video_path': video_path, 'theme': theme})
+        logger.info(f"✅ Vídeo montado com sucesso em: {video_path}")
         return True
     else:
-        print("\n❌ Video assembly failed. Check logs for errors, especially for ffmpeg/ffprobe installation.")
+        logger.error("❌ Falha na montagem do vídeo. Verifique os logs para erros, especialmente instalação do ffmpeg/ffprobe.")
         return False
 
 if __name__ == "__main__":
+    # Setup logging first
+    setup_logging(log_dir="logs", log_level="INFO")
     parser = argparse.ArgumentParser(description="Generate a short AI comic-style video from a theme.")
     parser.add_argument("--theme", type=str, help="The theme of the video (e.g., 'Cyberpunk city exploration').")
     parser.add_argument("--test", action="store_true", help="Run in test mode using existing files (no API calls)")
@@ -170,13 +196,21 @@ if __name__ == "__main__":
     parser.add_argument("--language", type=str,
                        help="Language code for TTS (e.g., 'pt-br', 'en-us'). Auto-detected if not specified.")
     
+    # Visual effects configuration options
+    parser.add_argument("--effects-preset", type=str, default="professional",
+                       choices=["professional", "dynamic", "cinematic", "subtle", "energetic"],
+                       help="Visual effects preset (default: professional)")
+    parser.add_argument("--no-effects", action="store_true",
+                       help="Disable visual effects and transitions")
+    
     args = parser.parse_args()
 
     # Test mode - use existing files
     if args.test:
-        print("🧪 Executando em modo de teste...")
-        print("💡 Use: python test_mode.py --list para ver projetos disponíveis")
-        print("💡 Use: python test_mode.py --project <nome> para testar montagem")
+        logger = get_logger("main")
+        logger.info("🧪 Executando em modo de teste...")
+        logger.info("💡 Use: python test_mode.py --list para ver projetos disponíveis")
+        logger.info("💡 Use: python test_mode.py --project <nome> para testar montagem")
         sys.exit(0)
     
     # Normal mode - require theme
@@ -184,32 +218,34 @@ if __name__ == "__main__":
         parser.error("--theme é obrigatório no modo normal. Use --test para modo de teste.")
 
     # Validar configuração antes de iniciar
-    print("\n🔧 Verificando configuração do sistema...")
+    logger = get_logger("main")
+    logger.info("🔧 Verificando configuração do sistema...")
     validation = validate_configuration()
     
     if not validation['valid']:
-        print("❌ Configuração inválida. Execute 'python src/config.py' para detalhes.")
+        logger.error("❌ Configuração inválida. Execute 'python src/config.py' para detalhes.", extra={'extra_data': {'errors': validation['errors']}})
         sys.exit(1)
     
     # Check ElevenLabs API key if specifically requested
     if args.voice_provider == "elevenlabs" and not validation['services_available'].get('elevenlabs'):
-        print("Erro: ELEVENLABS_API_KEY deve estar configurado para usar --voice-provider elevenlabs.")
-        print("Dica: Use --voice-provider auto ou gtts como alternativas.")
+        logger.error("ELEVENLABS_API_KEY deve estar configurado para usar --voice-provider elevenlabs.")
+        logger.info("Dica: Use --voice-provider auto ou gtts como alternativas.")
         sys.exit(1)
     
     # Show voice configuration info
     if args.voice_provider != "auto" or args.voice_type != "narrator" or args.language:
-        print("\n🎙️ Voice Configuration:")
-        print(f"   -> Provider: {args.voice_provider}")
-        print(f"   -> Voice type: {args.voice_type}")
+        logger.info("🎙️ Configuração de Voz:", extra={'extra_data': {'voice_provider': args.voice_provider, 'voice_type': args.voice_type, 'language': args.language}})
+        logger.info(f"   -> Provider: {args.voice_provider}")
+        logger.info(f"   -> Voice type: {args.voice_type}")
         if args.language:
-            print(f"   -> Language: {args.language}")
-        print()
+            logger.info(f"   -> Language: {args.language}")
     
-    # Run main function with voice parameters
+    # Run main function with voice and effects parameters
     main(
         args.theme,
         voice_provider=args.voice_provider,
         voice_type=args.voice_type,
-        language=args.language
+        language=args.language,
+        effects_preset=args.effects_preset,
+        enable_effects=not args.no_effects
     )

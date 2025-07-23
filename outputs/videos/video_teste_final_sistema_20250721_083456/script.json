@@ -1,0 +1,26 @@
+{
+  "theme": "teste final sistema",
+  "title": "System Override",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art. Close-up on a glowing red button labeled \"System Override.\" Sparks fly from exposed wires around it. Style: Cyberpunk, dramatic lighting.",
+      "narration": "The final test."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Wide shot. A futuristic control room bathed in flickering red emergency lights. A lone figure in a black hoodie reaches for the button. Style: Cyberpunk, high contrast.",
+      "narration": "One chance to break free."
+    },
+    {
+      "scene": 3,
+      "visual_description": "Extreme close-up. The figure's finger presses the button. The red glow intensifies, blinding. Style: Abstract digital art, intense color gradients.",
+      "narration": "System override initiated."
+    },
+    {
+      "scene": 4,
+      "visual_description": "Wide shot. The control room explodes in a burst of pure white light. Style: Abstract digital art, minimal, white background with expanding shockwave effect.",
+      "narration": "Freedom."
+    }
+  ]
+}

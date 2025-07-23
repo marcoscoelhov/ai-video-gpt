@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Monitoramento - AI Video GPT</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .metric-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+        .alert-warning {
+            border-left: 4px solid #f59e0b;
+        }
+        .alert-critical {
+            border-left: 4px solid #ef4444;
+        }
+        .status-healthy {
+            color: #10b981;
+        }
+        .status-warning {
+            color: #f59e0b;
+        }
+        .status-critical {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-chart-line mr-3"></i>
+                Dashboard de Monitoramento
+            </h1>
+            <p class="text-gray-600">Monitoramento em tempo real do sistema AI Video GPT</p>
+        </div>
+
+        <!-- Alertas -->
+        <div id="alerts-container" class="mb-6"></div>
+
+        <!-- Métricas Principais -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- CPU -->
+            <div class="metric-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">CPU</p>
+                        <p id="cpu-usage" class="text-2xl font-bold text-gray-900">--</p>
+                    </div>
+                    <div class="p-3 bg-blue-100 rounded-full">
+                        <i class="fas fa-microchip text-blue-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="cpu-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memória -->
+            <div class="metric-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Memória</p>
+                        <p id="memory-usage" class="text-2xl font-bold text-gray-900">--</p>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded-full">
+                        <i class="fas fa-memory text-green-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="memory-bar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disco -->
+            <div class="metric-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Disco</p>
+                        <p id="disk-usage" class="text-2xl font-bold text-gray-900">--</p>
+                    </div>
+                    <div class="p-3 bg-yellow-100 rounded-full">
+                        <i class="fas fa-hdd text-yellow-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="disk-bar" class="bg-yellow-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Status -->
+            <div class="metric-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">API Status</p>
+                        <p id="api-status" class="text-2xl font-bold text-gray-900">--</p>
+                    </div>
+                    <div class="p-3 bg-purple-100 rounded-full">
+                        <i class="fas fa-server text-purple-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p id="api-requests" class="text-sm text-gray-600">-- requisições/hora</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Gráfico de CPU e Memória -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-chart-area mr-2"></i>
+                    Performance do Sistema
+                </h3>
+                <canvas id="system-chart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Gráfico de API -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    Estatísticas da API
+                </h3>
+                <canvas id="api-chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Tabelas de Informações -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Cache Stats -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-database mr-2"></i>
+                    Estatísticas do Cache
+                </h3>
+                <div id="cache-stats" class="space-y-2">
+                    <!-- Cache stats will be populated here -->
+                </div>
+                <button

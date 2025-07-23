@@ -1,0 +1,124 @@
+{
+  "title": "Roteiro Personalizado",
+  "description": "Roteiro fornecido pelo usuário com personagens e vozes personalizadas",
+  "total_scenes": 13,
+  "estimated_duration": 55,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "character": "Liam",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "My laundry machine just screamed at me. I'm not even kidding.",
+      "visual_description": "Cena 1 com Liam"
+    },
+    {
+      "scene_number": 2,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "That’s bad. Did it sound like a regular scream or like… haunted-fabric-of-reality type of scream?",
+      "visual_description": "Cena 2 com Spider-Man"
+    },
+    {
+      "scene_number": 3,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "This is exactly why I carry Febreze and nun-chucks. I'm going in.",
+      "visual_description": "Cena 3 com Deadpool"
+    },
+    {
+      "scene_number": 4,
+      "character": "Liam",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "It swallowed my hoodie… and it burped.",
+      "visual_description": "Cena 4 com Liam"
+    },
+    {
+      "scene_number": 5,
+      "character": "Batman",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "That’s not just any washer. It’s a LexCorp prototype. I knew it.",
+      "visual_description": "Cena 5 com Batman"
+    },
+    {
+      "scene_number": 6,
+      "character": "Hulk",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "voice_name": "Josh",
+      "narration": "Machine noisy? Hulk make it quiet.",
+      "visual_description": "Cena 6 com Hulk"
+    },
+    {
+      "scene_number": 7,
+      "character": "Laundry Machine",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Synthetic (Narrator)",
+      "narration": "Spin cycle initiated. All humans will be folded.",
+      "visual_description": "Cena 7 com Laundry Machine"
+    },
+    {
+      "scene_number": 8,
+      "character": "Spider-Man",
+      "voice_id": "Yko7PKHZNXotIFUBG7I9",
+      "voice_name": "Matthew",
+      "narration": "It’s rolling toward the garage. And it's humming Beethoven backwards.",
+      "visual_description": "Cena 8 com Spider-Man"
+    },
+    {
+      "scene_number": 9,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "It’s boiling the neighbor’s koi pond! Why is it aiming a hanger at me!?",
+      "visual_description": "Cena 9 com Deadpool"
+    },
+    {
+      "scene_number": 10,
+      "character": "Liam",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "voice_name": "Adam",
+      "narration": "My hoodie’s sleeve just waved at me. I think it's… alive.",
+      "visual_description": "Cena 10 com Liam"
+    },
+    {
+      "scene_number": 11,
+      "character": "Batman",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "Deploying fabric-neutralizer drone. This might shrink time itself.",
+      "visual_description": "Cena 11 com Batman"
+    },
+    {
+      "scene_number": 12,
+      "character": "Thanos",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "voice_name": "William",
+      "narration": "I forged that washer with the Time Cycle. Now it spins fate.",
+      "visual_description": "Cena 12 com Thanos"
+    },
+    {
+      "scene_number": 13,
+      "character": "Deadpool",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "voice_name": "Elliot",
+      "narration": "Before this thing irons the whole planet—LIKE and comment this emoji: 🧺",
+      "visual_description": "Cena 13 com Deadpool"
+    }
+  ],
+  "metadata": {
+    "created_from": "custom_script",
+    "total_characters": 7,
+    "voices_used": [
+      "William",
+      "Synthetic (Narrator)",
+      "Adam",
+      "Josh",
+      "Elliot",
+      "Matthew"
+    ]
+  }
+}

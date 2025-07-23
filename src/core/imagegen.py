@@ -27,13 +27,14 @@ def initialize_imagen_client():
         logger.error(f"Failed to initialize Imagen client: {e}")
         return None
 
-def generate_images_from_prompts(prompts: List[str], output_dir: str) -> Optional[List[str]]:
+def generate_images_from_prompts(prompts: List[str], output_dir: str, image_preset: str = None) -> Optional[List[str]]:
     """
     Generates images from a list of prompts using Google Imagen 3 via Vertex AI with Gemini fallback.
     
     Args:
         prompts: List of text prompts for image generation
         output_dir: Directory to save generated images
+        image_preset: Nome do preset de imagem a ser aplicado (opcional)
         
     Returns:
         List of paths to generated images, or None if generation fails
@@ -42,6 +43,17 @@ def generate_images_from_prompts(prompts: List[str], output_dir: str) -> Optiona
     if not client:
         logger.error("Failed to initialize Imagen client")
         return None
+    
+    # Apply image preset if specified
+    if image_preset:
+        try:
+            from parsers.image_prompts_parser import enhance_prompts_for_consistency
+            prompts = enhance_prompts_for_consistency(prompts, preset=image_preset)
+            logger.info(f"Applied image preset '{image_preset}' to {len(prompts)} prompts")
+        except ImportError as e:
+            logger.warning(f"Could not apply image preset '{image_preset}': {e}")
+        except Exception as e:
+            logger.error(f"Error applying image preset '{image_preset}': {e}")
     
     # Create output directory
     Path(output_dir).mkdir(parents=True, exist_ok=True)

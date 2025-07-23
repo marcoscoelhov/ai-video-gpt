@@ -1,0 +1,21 @@
+{
+  "theme": "teste correção bordas pretas",
+  "title": "No More Black Borders!",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art style. Close-up on a photo with harsh black borders, looking like a poorly framed artwork.  A giant, cartoony eraser bounces menacingly towards it.",
+      "narration": "Ugh, these black borders are ruining my pics!"
+    },
+    {
+      "scene": 2,
+      "visual_description": "Dynamic, comic book style. The eraser slams down on the borders, creating a puff of colorful, digital smoke.",
+      "narration": "Time to fix this!"
+    },
+    {
+      "scene": 3,
+      "visual_description": "Clean, vibrant digital comic book art. The photo is now perfectly borderless, glowing with a soft inner light.  The eraser gives a thumbs up.",
+      "narration": "Perfect!"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "session_start": "2025-07-20T22:39:58.059288",
+  "session_end": "2025-07-20T22:40:23.376451",
+  "total_cost_usd": 0.05,
+  "cost_by_service": {
+    "vertex_ai_image_generation": 0.04,
+    "gemini_image_generation": 0.01
+  },
+  "detailed_costs": [
+    {
+      "timestamp": "2025-07-20T22:40:08.411537",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-20T22:40:18.364368",
+      "service": "vertex_ai_image_generation",
+      "cost_usd": 0.02,
+      "details": ""
+    },
+    {
+      "timestamp": "2025-07-20T22:40:23.376100",
+      "service": "gemini_image_generation",
+      "cost_usd": 0.01,
+      "details": ""
+    }
+  ]
+}

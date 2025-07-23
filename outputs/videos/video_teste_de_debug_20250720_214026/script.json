@@ -1,0 +1,26 @@
+{
+  "theme": "teste de debug",
+  "title": "Bug Hunt",
+  "scenes": [
+    {
+      "scene": 1,
+      "visual_description": "Vibrant, digital comic book art. A programmer, slumped over a keyboard, surrounded by floating lines of code. The code glows with an ominous red error message: 'Segmentation Fault'. Coffee cups litter the desk. The room is dark, illuminated only by the monitor's glow.",
+      "narration": "Another late night, another bug."
+    },
+    {
+      "scene": 2,
+      "visual_description": "Close-up on the programmer's face, now determined.  The reflection of cascading green code streams across their glasses.  Energetic digital glyphs and symbols swirl around their head.",
+      "narration": "Time to hunt."
+    },
+    {
+      "scene": 3,
+      "visual_description": "Cinematic shot of a single line of code highlighted in bright yellow amidst a vast, dark digital landscape.  Electrical sparks zap around the highlighted code, then it transforms into correct, flowing green code.",
+      "narration": "Gotcha!"
+    },
+    {
+      "scene": 4,
+      "visual_description": "The programmer leans back, victorious, bathed in the warm glow of a successful compile. The room is brighter, the code lines are calm and blue.  A steaming mug of coffee sits untouched on the now clean desk.",
+      "narration": "Debug complete."
+    }
+  ]
+}

@@ -6,8 +6,15 @@ Script final para renderizar vídeo de demonstração usando o sistema existente
 
 import os
 import json
+import sys
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+
+# Add src directory to path
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'src'))
+
 from core.assemble import assemble_video
+from utils.security import safe_subprocess_run, get_safe_env_path, SecurityError
 
 def create_demo_images(script, images_dir):
     """Cria imagens de demonstração para o vídeo."""
@@ -111,22 +118,42 @@ def create_demo_audio_files(script, audio_dir):
     
     print("🔊 Criando arquivos de áudio de demonstração...")
     
-    # Usar ffmpeg para criar arquivos de áudio silenciosos
-    for i, scene in enumerate(script['scenes'], 1):
-        audio_path = os.path.join(audio_dir, f'scene_{i:02d}.mp3')
+    try:
+        # Get secure ffmpeg path
+        ffmpeg_path = get_safe_env_path("FFMPEG_PATH", "ffmpeg")
         
-        # Criar 5 segundos de silêncio
-        cmd = f'ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t 5 -y "{audio_path}"'
-        
-        try:
-            os.system(cmd + ' > nul 2>&1')  # Silenciar output
-            if os.path.exists(audio_path) and os.path.getsize(audio_path) > 0:
-                audio_paths.append(audio_path)
-                print(f"   ✅ Criado: scene_{i:02d}.mp3")
-            else:
-                print(f"   ❌ Falha ao criar: scene_{i:02d}.mp3")
-        except Exception as e:
-            print(f"   ❌ Erro ao criar áudio {i}: {e}")
+        # Create silent audio files securely
+        for i, scene in enumerate(script['scenes'], 1):
+            audio_path = os.path.join(audio_dir, f'scene_{i:02d}.mp3')
+            
+            # Build secure command for 5 seconds of silence
+            command = [
+                ffmpeg_path,
+                "-f", "lavfi",
+                "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
+                "-t", "5",
+                "-y",
+                audio_path
+            ]
+            
+            try:
+                # Run command securely
+                result = safe_subprocess_run(command, timeout=30)
+                
+                if os.path.exists(audio_path) and os.path.getsize(audio_path) > 0:
+                    audio_paths.append(audio_path)
+                    print(f"   ✅ Criado: scene_{i:02d}.mp3")
+                else:
+                    print(f"   ❌ Falha ao criar: scene_{i:02d}.mp3")
+                    
+            except SecurityError as e:
+                print(f"   ❌ Erro de segurança ao criar áudio {i}: {e}")
+            except Exception as e:
+                print(f"   ❌ Erro ao criar áudio {i}: {e}")
+    
+    except SecurityError as e:
+        print(f"❌ Erro de segurança: FFmpeg não encontrado ou inválido: {e}")
+        return []
     
     return audio_paths
 
